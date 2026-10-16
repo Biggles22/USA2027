@@ -1,10 +1,190 @@
-<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>USA2027 | Route 66</title><link rel="stylesheet" href="style.css"></head><body><header class="hero"><div class="top"><b>★ USA<span>2027</span></b><small>29 APRIL – 14 MAJ 2027 · PRELIMINÄRT</small></div><div class="intro"><p class="kicker">THE GREAT AMERICAN ROAD TRIP</p><h1>LOS ANGELES<br><em>TO CHICAGO.</em></h1><p>En resa längs legendariska Route 66. All planering, alla stopp och alla minnen på ett ställe.</p><div class="stats"><div><strong>16</strong><small>resdagar</small></div><div><strong>8</strong><small>Route 66-delstater</small></div><div><strong>2027</strong><small>vårt äventyr</small></div></div></div></header><nav aria-label="Resans flikar" id="nav"><button data-page="start" class="active">Översikt</button><button data-page="flyg">✈ Flyg</button><button data-page="bil">🚙 Bil</button><button data-page="hotell">Hotell</button><button data-page="rutt">Rutt</button><button data-page="kostnader">Kostnader</button><button data-page="checklista">Checklista</button><button data-page="dagbok">Dagbok</button></nav><main>
-<section id="start" class="page active"><div class="heading"><small>VÄLKOMMEN TILL USA2027</small><h2>Vår stora roadtrip.</h2><p>Vi börjar i Los Angeles, följer Route 66 österut och avslutar i Chicago. Här samlar vi bokningar, budget, övernattningar och resans höjdpunkter.</p></div><div class="cards"><article><div class="symbol">✈</div><h3>Flyg</h3><p>Stockholm till Los Angeles, hem från Chicago.</p><button data-jump="flyg">Visa flyg →</button></article><article><div class="symbol">↝</div><h3>Route 66</h3><p>Historiska vägar, småstäder, diners och klassiska stopp.</p><button data-jump="rutt">Visa rutten →</button></article><article><div class="symbol">$</div><h3>Resebudget</h3><p>Planera alla kostnader på ett och samma ställe.</p><button data-jump="kostnader">Visa budget →</button></article></div><div class="note">Resdatum och etapper är än så länge preliminära. Inga flyg, hotell eller hyrbilar markeras som bokade.</div></section>
-<section id="flyg" class="page"><div class="heading"><small>01 / TRANSPORT</small><h2>Flyg</h2><p>Resan över Atlanten och hem igen.</p></div><div class="cards two"><article><span class="status">PRELIMINÄRT</span><h3>Utresa · 29 april</h3><p>Stockholm Arlanda (ARN) → Los Angeles (LAX)</p><p class="muted">Flygbolag, tider och flygnummer läggs in när resan bokats.</p></article><article><span class="status">PRELIMINÄRT</span><h3>Hemresa · 14 maj</h3><p>Chicago O'Hare (ORD) → Stockholm Arlanda (ARN)</p><p class="muted">Mellanlandning, bagage och tider kompletteras senare.</p></article></div></section>
-<section id="bil" class="page"><div class="heading"><small>02 / TRANSPORT</small><h2>Hyrbil</h2><p>Envägshyra från Los Angeles till Chicago.</p></div><div class="cards two"><article><h3>Hämta bilen</h3><p>Los Angeles, lämpligen vid LAX.</p><span class="status">EJ BOKAD</span></article><article><h3>Lämna bilen</h3><p>Chicago, flygplats eller centrum.</p><span class="status">EJ BOKAD</span></article></div><div class="note">Jämför envägsavgift, fria mil, försäkring, extra förare, deposition och bränslepolicy.</div></section>
-<section id="hotell" class="page"><div class="heading"><small>03 / BOENDE</small><h2>Hotell & motell</h2><p>Förslag på övernattningsorter. Den slutliga dagplanen bestämmer hotellen.</p></div><div class="tablewrap"><table><thead><tr><th>Ort</th><th>Hotell</th><th>Status</th></tr></thead><tbody id="hotels"></tbody></table></div></section>
-<section id="rutt" class="page"><div class="heading"><small>04 / ROAD TRIP</small><h2>Route 66, väster till öster.</h2><p>En första lista över stopp längs vägen. Körsträckor och dagar bestäms senare.</p></div><div id="stops" class="stops"></div><div class="note">Route 66 går genom Kalifornien, Arizona, New Mexico, Texas, Oklahoma, Kansas, Missouri och Illinois. Den historiska vägen är delvis ersatt av moderna vägar.</div></section>
-<section id="kostnader" class="page"><div class="heading"><small>05 / RESEKASSA</small><h2>Vad kostar resan?</h2><p>Fyll i egna uppskattningar i svenska kronor. Summan uppdateras automatiskt.</p></div><div id="budget" class="budget"></div><div class="sum"><span>Beräknad totalbudget</span><strong id="total">0 kr</strong></div><p class="muted">Uppgifterna sparas bara lokalt i den webbläsare du använder.</p></section>
-<section id="checklista" class="page"><div class="heading"><small>06 / FÖRBEREDELSER</small><h2>Att göra innan avresa.</h2><p>Bocka av uppgifterna i takt med att planeringen blir klar.</p></div><div id="checks" class="checks"></div></section>
-<section id="dagbok" class="page"><div class="heading"><small>07 / RESEMINNEN</small><h2>Vår resedagbok.</h2><p>Skriv ner minnen, platser och händelser längs vägen.</p></div><label for="diary">Anteckningar</label><textarea id="diary" rows="12" placeholder="Idag körde vi längs Route 66..."></textarea><p class="muted">Sparas automatiskt i den här webbläsaren, inte på GitHub.</p><button class="primary" id="export">Ladda ner anteckningarna</button></section>
-</main><footer><strong>USA2027</strong><span>LOS ANGELES → CHICAGO · ROUTE 66</span><small>THE GREAT AMERICAN ROAD TRIP</small></footer><script src="script.js"></script></body></html>
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#14263a">
+  <title>USA2027 | Route 66</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <div class="top">
+    <b>★ USA<span>2027</span></b>
+    <small>29 APRIL – 15 MAJ 2027 · 3 RESENÄRER</small>
+  </div>
+  <div class="intro">
+    <p class="kicker">THE GREAT AMERICAN ROAD TRIP</p>
+    <h1>LOS ANGELES<br><em>TO CHICAGO.</em></h1>
+    <p>17 dagar från Stilla havet till Chicago via Las Vegas, Grand Canyon och klassiska Route 66. Fokus på genuina motell, rimliga kördagar och tid för stopp längs vägen.</p>
+    <div class="stats">
+      <div><strong>17</strong><small>resdagar</small></div>
+      <div><strong>16</strong><small>nätter</small></div>
+      <div><strong>≈4 600</strong><small>km på väg</small></div>
+      <div><strong>3</strong><small>resenärer</small></div>
+    </div>
+  </div>
+</header>
+
+<nav aria-label="Resans flikar" id="nav">
+  <button data-page="start" class="active">Översikt</button>
+  <button data-page="flyg">✈ Flyg</button>
+  <button data-page="bil">🚙 Bil</button>
+  <button data-page="hotell">🛏 Boende</button>
+  <button data-page="rutt">🛣 Dag för dag</button>
+  <button data-page="kostnader">💰 Kostnader</button>
+  <button data-page="checklista">✓ Checklista</button>
+  <button data-page="dagbok">Dagbok</button>
+</nav>
+
+<main>
+<section id="start" class="page active">
+  <div class="heading">
+    <small>FASTSTÄLLD GRUNDPLAN</small>
+    <h2>Route 66 · 29 april–15 maj.</h2>
+    <p>Landning i Los Angeles den 29 april, en natt i Santa Monica och tidig start mot Las Vegas nästa morgon. Hemresa från Chicago O'Hare den 15 maj.</p>
+  </div>
+
+  <div class="cards">
+    <article>
+      <div class="symbol">29/4</div>
+      <h3>Start i LA</h3>
+      <p>En lugn första kväll i Santa Monica. Route 66-startbilden vid piren och sedan tidig avfärd mot Las Vegas.</p>
+      <button data-jump="rutt">Se hela rutten →</button>
+    </article>
+    <article>
+      <div class="symbol">66</div>
+      <h3>Motellkänsla</h3>
+      <p>The Lodge, El Vado, Blue Swallow och Rockwood är prioriterade boenden som är en del av själva Route 66-upplevelsen.</p>
+      <button data-jump="hotell">Se boenden →</button>
+    </article>
+    <article>
+      <div class="symbol">≈97k</div>
+      <h3>Landbudget</h3>
+      <p>Rekommenderad gruppbudget cirka 97 000 kr exklusive flyg, inklusive ungefär 10 % reserv.</p>
+      <button data-jump="kostnader">Se budgeten →</button>
+    </article>
+  </div>
+
+  <div class="trip-summary">
+    <div><span>LA</span><small>29 apr</small></div>
+    <i>→</i><div><span>LAS</span><small>30 apr</small></div>
+    <i>→</i><div><span>GC</span><small>3 maj</small></div>
+    <i>→</i><div><span>ABQ</span><small>4–6 maj</small></div>
+    <i>→</i><div><span>CHI</span><small>13–15 maj</small></div>
+  </div>
+
+  <div class="note"><strong>Planeringsprincip:</strong> ett rum för tre vuxna där det fungerar, klassiska motell där de tillför upplevelse, bättre kedjehotell där läge och komfort är viktigare.</div>
+</section>
+
+<section id="flyg" class="page">
+  <div class="heading">
+    <small>01 / TRANSPORT</small>
+    <h2>Flyg</h2>
+    <p>Datumen är fasta i reseplanen. Flygnummer och tider läggs in när bokningen är klar.</p>
+  </div>
+  <div class="cards two">
+    <article>
+      <span class="status fixed">DATUM FAST</span>
+      <h3>Utresa · 29 april 2027</h3>
+      <p><strong>Stockholm Arlanda (ARN) → Los Angeles (LAX)</strong></p>
+      <p class="muted">Efter landning: hyrbil → Santa Monica → en natt på Sea Shore Motel.</p>
+    </article>
+    <article>
+      <span class="status fixed">DATUM FAST</span>
+      <h3>Hemresa · 15 maj 2027</h3>
+      <p><strong>Chicago O'Hare (ORD) → Stockholm Arlanda (ARN)</strong></p>
+      <p class="muted">Sista natten 14–15 maj nära O'Hare för en stressfri bilretur.</p>
+    </article>
+  </div>
+</section>
+
+<section id="bil" class="page">
+  <div class="heading">
+    <small>02 / TRANSPORT</small>
+    <h2>Hyrbil</h2>
+    <p>Envägshyra LAX → ORD för tre personer och bagage.</p>
+  </div>
+  <div class="cards two">
+    <article>
+      <span class="status">REKOMMENDATION</span>
+      <h3>Midsize SUV</h3>
+      <p>Toyota RAV4, Nissan Rogue, Hyundai Tucson eller liknande. Tillräckligt för 3 vuxna, 3 större väskor och handbagage.</p>
+      <p><strong>Hämta:</strong> LAX · 29 april<br><strong>Lämna:</strong> ORD · 15 maj</p>
+    </article>
+    <article>
+      <span class="status">BUDGET</span>
+      <h3>18 000 kr inkl. försäkringsmarginal</h3>
+      <p>Hyrbil cirka 15 000 kr + cirka 3 000 kr marginal för CDW/LDW, stöldskydd, zero excess och envägsrelaterade avgifter.</p>
+      <p class="muted">Kontrollera fria mil, extra förare, deposition och bränslepolicy före bokning.</p>
+    </article>
+  </div>
+  <div class="note">Beräknad total körning: <strong>cirka 4 300–4 600 km</strong>. Bränslebudget: <strong>cirka 5 000 kr</strong>.</div>
+</section>
+
+<section id="hotell" class="page">
+  <div class="heading">
+    <small>03 / BOENDE</small>
+    <h2>Motell & hotell</h2>
+    <p>16 nätter. Priserna är planeringspriser i SEK för tre personer och ska ersättas med bokat slutpris när respektive boende är klart.</p>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Datum</th><th>Ort</th><th>Boende</th><th>Rum</th><th>Budget</th><th>Prioritet</th></tr></thead>
+      <tbody id="hotels"></tbody>
+    </table>
+  </div>
+  <div class="note"><strong>Boka först:</strong> Blue Swallow → Rockwood → El Vado → The Lodge. De små historiska boendena har få rum och kan bli fulla långt före kedjehotellen.</div>
+</section>
+
+<section id="rutt" class="page">
+  <div class="heading">
+    <small>04 / ROAD TRIP</small>
+    <h2>Dag för dag.</h2>
+    <p>Detaljerad körplan med ungefärliga avstånd, stopp och övernattningar. Körsträckorna varierar beroende på hur mycket gammal Route 66 ni väljer framför Interstate.</p>
+  </div>
+  <div id="stops" class="stops"></div>
+</section>
+
+<section id="kostnader" class="page">
+  <div class="heading">
+    <small>05 / RESEKASSA</small>
+    <h2>Hela landbudgeten.</h2>
+    <p>Förifylld kalkyl för tre personer. Du kan ändra beloppen — de sparas lokalt i din webbläsare.</p>
+  </div>
+  <div id="budget" class="budget"></div>
+  <div class="sum"><span>Beräknad grundbudget</span><strong id="total">0 kr</strong></div>
+  <div class="sum recommended"><span>Rekommenderad budget inkl. ca 10 % reserv</span><strong id="recommended">0 kr</strong></div>
+  <div class="per-person"><span>Per person inkl. reserv</span><strong id="perPerson">0 kr</strong><small>Flygbiljetter tillkommer.</small></div>
+</section>
+
+<section id="checklista" class="page">
+  <div class="heading">
+    <small>06 / FÖRBEREDELSER</small>
+    <h2>Bokningsordning & att göra.</h2>
+    <p>Bocka av i takt med att resan blir bokad.</p>
+  </div>
+  <div id="checks" class="checks"></div>
+</section>
+
+<section id="dagbok" class="page">
+  <div class="heading">
+    <small>07 / RESEMINNEN</small>
+    <h2>Vår resedagbok.</h2>
+    <p>Skriv ner minnen, platser och händelser längs vägen.</p>
+  </div>
+  <label for="diary">Anteckningar</label>
+  <textarea id="diary" rows="12" placeholder="Idag körde vi längs Route 66..."></textarea>
+  <p class="muted">Sparas automatiskt i den här webbläsaren, inte på GitHub.</p>
+  <button class="primary" id="export">Ladda ner anteckningarna</button>
+</section>
+</main>
+
+<footer>
+  <strong>USA2027</strong>
+  <span>LOS ANGELES → CHICAGO · ROUTE 66</span>
+  <small>29 APRIL – 15 MAJ 2027</small>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
