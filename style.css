@@ -122,3 +122,11 @@ footer{background:#14263a;color:white;padding:35px 25px;display:flex;gap:20px;ju
   .hero-countdown .countdown strong{font-size:23px}
   .hero-countdown .countdown-main strong{font-size:36px}
 }
+
+/* Slightly larger hero eyebrow/date text */
+.top small{font-size:13px}
+.kicker{font-size:13px}
+@media(max-width:800px){
+  .top small{font-size:11px}
+  .kicker{font-size:11px}
+}
