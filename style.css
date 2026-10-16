@@ -148,7 +148,7 @@ footer{background:#14263a;color:white;padding:35px 25px;display:flex;gap:20px;ju
 .no-scroll{overflow:hidden}
 .bb-lightbox{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:28px;background:rgba(7,15,24,.92);backdrop-filter:blur(5px)}
 .bb-lightbox.open{display:flex}
-.bb-lightbox-inner{max-width:min(92vw,1100px);max-height:90vh;overflow:auto;border-radius:10px;box-shadow:0 22px 70px rgba(0,0,0,.45);background:#efe5d2}
+.bb-lightbox-inner{max-width:min(94vw,1200px);max-height:90vh;overflow:auto;border-radius:10px;box-shadow:0 22px 70px rgba(0,0,0,.45);background:#efe5d2}
 .bb-lightbox-inner img{display:block;width:auto;max-width:100%;height:auto;max-height:none;margin:auto}
 .bb-lightbox-close{position:fixed;top:18px;right:24px;z-index:1001;width:48px;height:48px;border:1px solid rgba(255,255,255,.35);border-radius:50%;background:rgba(20,38,58,.9);color:#fff;font-size:34px;line-height:1;cursor:pointer}
 .bb-lightbox-close:hover{background:#a66a33}
