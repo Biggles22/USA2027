@@ -130,3 +130,14 @@ footer{background:#14263a;color:white;padding:35px 25px;display:flex;gap:20px;ju
   .top small{font-size:11px}
   .kicker{font-size:11px}
 }
+
+.route-feature{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,360px);gap:26px;align-items:center;margin:0 0 28px;background:#fff;border:1px solid #e8e2d8;border-radius:10px;padding:24px;box-shadow:0 5px 18px rgba(20,38,58,.04)}
+.route-feature-copy small{font-size:10px;letter-spacing:1.6px;font-weight:800;color:#c58b46}
+.route-feature-copy h3{font:600 32px Oswald;margin:7px 0 9px;text-transform:uppercase}
+.route-feature-copy p{color:#687582;line-height:1.65;margin:0 0 12px}
+.feature-link{display:inline-block;margin-top:4px;color:#a66a33;font-weight:700;text-decoration:none}
+.feature-link:hover{text-decoration:underline}
+.route-feature-image{display:block;border-radius:8px;overflow:hidden;border:1px solid #d8cdbc;background:#eee8dd}
+.route-feature-image img{display:block;width:100%;height:auto}
+.breaking-bad-feature{border-left:4px solid #8d3b28}
+@media(max-width:800px){.route-feature{grid-template-columns:1fr}.route-feature-image{max-width:420px}}
