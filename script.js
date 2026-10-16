@@ -604,6 +604,17 @@ function updateBookingSummary(){
 renderHotels();
 
 function hotelMapsUrl(h){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(h.address);}
+function hotelPopupHtml(h,i){
+  const official=h.official?'<a class="hotel-popup-btn primary" href="'+h.official+'" target="_blank" rel="noopener">Webbplats</a>':'';
+  const features=h.features.slice(0,4).map(f=>'<li>'+f+'</li>').join('');
+  return '<article class="hotel-popup-card">'+
+    '<div class="hotel-popup-photo"><img src="'+h.image+'" alt="'+h.name+' i '+h.city+'" loading="lazy" referrerpolicy="no-referrer"><span>Bild: '+h.photoCredit+'</span></div>'+
+    '<div class="hotel-popup-body"><div class="hotel-popup-top"><span class="hotel-popup-number">'+String(i+1).padStart(2,'0')+'</span><span class="status '+(h.priority==='BOKA FÖRST'?'priority':h.priority==='Normal'?'normal':'')+'">'+h.priority+'</span></div>'+
+    '<small>'+h.date+' · '+h.city+'</small><h4>'+h.name+'</h4><p>'+h.summary+'</p>'+
+    '<dl><div><dt>Rum</dt><dd>'+h.room+'</dd></div><div><dt>Planpris</dt><dd>'+h.price+'</dd></div><div><dt>Nätter</dt><dd>'+h.nights+'</dd></div><div><dt>Adress</dt><dd>'+h.address+'</dd></div></dl>'+
+    '<ul>'+features+'</ul><div class="hotel-popup-tip"><b>Vårt tips:</b> '+h.tip+'</div>'+
+    '<div class="hotel-popup-actions">'+official+'<a class="hotel-popup-btn" href="'+hotelMapsUrl(h)+'" target="_blank" rel="noopener">Google Maps</a></div></div></article>';
+}
 function renderHotelDetails(){
   const target=$('#hotelDetails'); if(!target) return;
   target.innerHTML=hotels.map((h,i)=>{
@@ -632,8 +643,9 @@ function initHotelMap(){
   const points=[];
   hotels.forEach((h,i)=>{
     const p=[h.lat,h.lng]; points.push(p);
-    const marker=L.marker(p).addTo(hotelMapInstance);
-    marker.bindPopup('<div class="hotel-popup"><b>'+String(i+1).padStart(2,'0')+' · '+h.name+'</b><br>'+h.date+' · '+h.city+'<br><small>'+h.address+'</small></div>');
+    const icon=L.divIcon({className:'hotel-marker-shell',html:'<span class="hotel-marker"><b>'+(i+1)+'</b></span>',iconSize:[34,42],iconAnchor:[17,40],popupAnchor:[0,-36]});
+    const marker=L.marker(p,{icon}).addTo(hotelMapInstance);
+    marker.bindPopup(hotelPopupHtml(h,i),{maxWidth:360,minWidth:300,className:'hotel-rich-popup'});
   });
   L.polyline(points,{color:'#b86e32',weight:4,opacity:.78,dashArray:'9 7'}).addTo(hotelMapInstance);
   hotelMapInstance.fitBounds(points,{padding:[28,28]});
