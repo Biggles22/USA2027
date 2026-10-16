@@ -455,19 +455,25 @@ const tasks=[
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
 const get=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))??f}catch{return f}},save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
 const money=n=>new Intl.NumberFormat('sv-SE').format(Math.round(n))+' kr';
+const escapeHtml=value=>String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const defaults=Object.fromEntries(costs.map(c=>[c.key,c.value]));
 const budget=get('usa2027-budget-v2',defaults);
 const pageIds=[...$$('[data-page]')].map(b=>b.dataset.page);
 function show(id,scroll=true){
   if(!pageIds.includes(id)) id='start';
-  $$('.page').forEach(p=>p.classList.toggle('active',p.id===id));
+  $$('.page').forEach(p=>{
+    const active=p.id===id;
+    p.classList.toggle('active',active);
+    p.hidden=!active;
+  });
   $$('[data-page]').forEach(b=>{
     const active=b.dataset.page===id;
     b.classList.toggle('active',active);
+    b.setAttribute('aria-selected',String(active));
+    b.tabIndex=active?0:-1;
     if(active){
-      b.setAttribute('aria-current','page');
       b.scrollIntoView({behavior:scroll?'smooth':'auto',block:'nearest',inline:'center'});
-    }else b.removeAttribute('aria-current');
+    }
   });
   if(id==='hotell') setTimeout(initHotelMap,80);
   if(scroll) window.scrollTo({top:0,behavior:'smooth'});
@@ -478,6 +484,15 @@ function navigate(id){
 }
 $$('[data-page]').forEach(b=>b.onclick=()=>navigate(b.dataset.page));
 $$('[data-jump]').forEach(b=>b.onclick=()=>navigate(b.dataset.jump));
+$('#nav').addEventListener('keydown',e=>{
+  if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key)) return;
+  e.preventDefault();
+  const current=pageIds.indexOf(document.activeElement.dataset.page);
+  const next=e.key==='Home'?0:e.key==='End'?pageIds.length-1:(current+(e.key==='ArrowRight'?1:-1)+pageIds.length)%pageIds.length;
+  const button=document.querySelector('[data-page="'+pageIds[next]+'"]');
+  button.focus();
+  navigate(button.dataset.page);
+});
 window.addEventListener('hashchange',()=>show(location.hash.slice(1)));
 show(location.hash.slice(1)||'start',false);
 
@@ -504,47 +519,25 @@ function updateCountdown(){
 updateCountdown();
 setInterval(updateCountdown,1000);
 
-async function loadBreakingBadMap(){
-  const img=$('#bbMapImage');
-  if(!img || img.getAttribute('src')) return;
-  try{
-    const files=['assets/bba1.txt','assets/bba2.txt','assets/bba3.txt','assets/bba4.txt','assets/bba5.txt','assets/bba6.txt','assets/bba7.txt','assets/bba8.txt','assets/bb2.txt','assets/bb3.txt','assets/bb4.txt'];
-    const parts=await Promise.all(files.map(async function(f){
-      const r=await fetch(f,{cache:'force-cache'});
-      if(!r.ok) throw new Error('Kunde inte läsa '+f);
-      return (await r.text()).trim();
-    }));
-    const src='data:image/jpeg;base64,'+parts.join('');
-    img.src=src;
-    const link=$('#bbMapLink');
-    const textLink=$('#bbMapTextLink');
-    if(link) link.href=src;
-    if(textLink) textLink.href=src;
-  }catch(e){
-    img.alt='Breaking Bad-kartan kunde inte laddas.';
-    const box=$('.route-feature-image');
-    if(box) box.classList.add('image-load-error');
-  }
-}
-loadBreakingBadMap();
-
+let lightboxReturnFocus=null;
 function openBreakingBadLightbox(e){
   if(e) e.preventDefault();
   const source=$('#bbMapImage');
   const modal=$('#bbModalImage');
   const box=$('#bbLightbox');
   if(!source || !source.src || !modal || !box) return;
+  lightboxReturnFocus=document.activeElement;
   modal.src=source.src;
-  box.classList.add('open');
-  box.setAttribute('aria-hidden','false');
+  box.hidden=false;
   document.body.classList.add('no-scroll');
+  $('#bbLightboxClose').focus();
 }
 function closeBreakingBadLightbox(){
   const box=$('#bbLightbox');
-  if(!box) return;
-  box.classList.remove('open');
-  box.setAttribute('aria-hidden','true');
+  if(!box || box.hidden) return;
+  box.hidden=true;
   document.body.classList.remove('no-scroll');
+  if(lightboxReturnFocus) lightboxReturnFocus.focus();
 }
 const bbTextLink=$('#bbMapTextLink');
 const bbImageLink=$('#bbMapLink');
@@ -554,7 +547,10 @@ if(bbTextLink) bbTextLink.addEventListener('click',openBreakingBadLightbox);
 if(bbImageLink) bbImageLink.addEventListener('click',openBreakingBadLightbox);
 if(bbClose) bbClose.addEventListener('click',closeBreakingBadLightbox);
 if(bbBox) bbBox.addEventListener('click',function(e){if(e.target===bbBox) closeBreakingBadLightbox();});
-document.addEventListener('keydown',function(e){if(e.key==='Escape') closeBreakingBadLightbox();});
+document.addEventListener('keydown',function(e){
+ if(e.key==='Escape') closeBreakingBadLightbox();
+ if(e.key==='Tab'&&bbBox&&!bbBox.hidden){e.preventDefault();bbClose.focus();}
+});
 
 
 
@@ -576,7 +572,7 @@ function renderHotels(){
    const currentPlan=plannedHotel(h);
    return '<tr><td>'+h.date+'</td><td>'+h.city+'</td><td><strong>'+h.name+'</strong></td><td>'+h.room+'</td>'+
      '<td class="plan-price"><strong>'+money(currentPlan)+'</strong><small>spann '+h.price+'</small></td>'+
-     '<td><input class="booked-price" type="number" min="0" step="1" data-hotel-booked="'+h.id+'" value="'+actualVal+'" placeholder="0"></td>'+
+     '<td><input class="booked-price" type="number" min="0" step="1" aria-label="Bokat pris för '+h.name+'" data-hotel-booked="'+h.id+'" value="'+actualVal+'" placeholder="0"></td>'+
      '<td data-hotel-var="'+h.id+'">'+varianceHtml(currentPlan,actualVal)+'</td>'+
      '<td><span class="status '+cls+'">'+h.priority+'</span></td></tr>';
  }).join('');
@@ -601,6 +597,7 @@ function updateBookingSummary(){
  $('#bookedActual').textContent=money(actual);
  $('#bookedVariance').textContent=(diff>0?'+':'')+money(diff);
  $('#bookedVarianceText').textContent=booked.length===0?'ingen bokning ännu':(diff<0?'under budget':diff>0?'över budget':'exakt budget');
+ $('#overviewHotels').textContent=booked.length+' / '+hotels.length;
  const card=$('#bookedVarianceCard'); card.classList.remove('good','bad');
  if(booked.length){ if(diff<0)card.classList.add('good'); if(diff>0)card.classList.add('bad'); }
 }
@@ -642,7 +639,46 @@ function initHotelMap(){
   hotelMapInstance.fitBounds(points,{padding:[28,28]});
 }
 
-$('#stops').innerHTML=itinerary.map((s,i)=>'<article class="stop" data-date="'+s.date+'"><div class="day">Dag '+(i+1)+'<small>'+s.date+'</small></div><div><h3>'+s.title+'</h3><p>'+s.text+'</p></div><div class="meta"><strong>'+s.km+'</strong>natt: '+s.night+'</div></article>').join('');
+const routeDetails=[
+ {drive:'≈35 min',depart:'Efter bilhämtning',origin:'Los Angeles International Airport',destination:'Santa Monica Pier'},
+ {drive:'≈5 tim 15 min',depart:'07:00',origin:'Santa Monica',destination:'Las Vegas'},
+ {drive:'Lokalt',depart:'Flexibelt',origin:'Las Vegas',destination:'Fremont Street Las Vegas'},
+ {drive:'≈4 tim 45 min',depart:'08:00',origin:'Las Vegas',destination:'Williams Arizona'},
+ {drive:'≈3 tim tur/retur',depart:'07:00',origin:'Williams Arizona',destination:'Grand Canyon South Rim'},
+ {drive:'≈6 tim 15 min',depart:'07:00',origin:'Williams Arizona',destination:'Albuquerque',long:true},
+ {drive:'Lokalt',depart:'Flexibelt',origin:'Albuquerque Old Town',destination:'Central Avenue Albuquerque'},
+ {drive:'≈2 tim 45 min',depart:'09:00',origin:'Albuquerque',destination:'Tucumcari'},
+ {drive:'≈2 tim 15 min',depart:'09:00',origin:'Tucumcari',destination:'Amarillo'},
+ {drive:'≈4 tim 15 min',depart:'08:00',origin:'Amarillo',destination:'Oklahoma City'},
+ {drive:'≈2 tim 15 min',depart:'09:00',origin:'Oklahoma City',destination:'Tulsa'},
+ {drive:'≈3 tim 30 min',depart:'08:30',origin:'Tulsa',destination:'Springfield Missouri'},
+ {drive:'≈4 tim',depart:'08:00',origin:'Springfield Missouri',destination:'St. Louis'},
+ {drive:'≈2 tim',depart:'Förmiddag',origin:'St. Louis',destination:'Springfield Illinois'},
+ {drive:'≈3 tim 30 min',depart:'08:30',origin:'Springfield Illinois',destination:'Chicago'},
+ {drive:'≈45 min',depart:'Eftermiddag',origin:'Downtown Chicago',destination:"Chicago O'Hare International Airport"},
+ {drive:'10–20 min',depart:'Enligt flygtid',origin:"Chicago O'Hare hotel",destination:"Chicago O'Hare International Airport"}
+];
+const routeDone=get('usa2027-route-done',{});
+const routeNotes=get('usa2027-route-notes',{});
+function mapsUrl(detail){return 'https://www.google.com/maps/dir/?api=1&travelmode=driving&origin='+encodeURIComponent(detail.origin)+'&destination='+encodeURIComponent(detail.destination)}
+function updateRouteProgress(){
+ const done=itinerary.filter((_,i)=>routeDone[i]).length;
+ $('#routeProgress').textContent=done+' / '+itinerary.length;
+ $('#routeProgressBar').style.width=(done/itinerary.length*100)+'%';
+ $('#overviewDays').textContent=done+' / '+itinerary.length;
+}
+$('#stops').innerHTML=itinerary.map((s,i)=>{
+ const detail=routeDetails[i];
+ return '<article class="stop '+(detail.long?'long-day':'')+'" data-date="'+s.date+'">'+
+  '<div class="day">Dag '+(i+1)+'<small>'+s.date+'</small></div>'+
+  '<div class="stop-content"><div class="stop-heading"><h3>'+s.title+'</h3>'+(detail.long?'<span class="status priority">LÅNG KÖRDAG</span>':'')+'</div><p>'+s.text+'</p>'+
+  '<div class="stop-tools"><span>⏱ '+detail.drive+'</span><span>Start: '+detail.depart+'</span><a href="'+mapsUrl(detail)+'" target="_blank" rel="noopener">Öppna i Google Maps ↗</a></div>'+
+  '<details><summary>Dagens anteckning</summary><textarea rows="3" data-route-note="'+i+'" aria-label="Anteckning för '+s.date+'" placeholder="Stopp, tider eller minnen...">'+escapeHtml(routeNotes[i]||'')+'</textarea></details></div>'+
+  '<div class="meta"><strong>'+s.km+'</strong><span>natt: '+s.night+'</span><label class="day-done"><input type="checkbox" data-route-done="'+i+'" '+(routeDone[i]?'checked':'')+'> Klar</label></div></article>';
+}).join('');
+$$('[data-route-done]').forEach(input=>input.onchange=()=>{routeDone[input.dataset.routeDone]=input.checked;save('usa2027-route-done',routeDone);updateRouteProgress()});
+$$('[data-route-note]').forEach(input=>input.oninput=()=>{routeNotes[input.dataset.routeNote]=input.value;save('usa2027-route-notes',routeNotes)});
+updateRouteProgress();
 const bbFeature=$('.breaking-bad-feature');
 const abqDay=document.querySelector('.stop[data-date="5 maj"]');
 if(bbFeature&&abqDay) abqDay.insertAdjacentElement('afterend',bbFeature);
@@ -718,13 +754,38 @@ $('#dailyPerPerson').textContent=money(Math.round(dayPlan/3))+'/person';
 $('#total').textContent=money(dayBase);
 $('#recommended').textContent=money(dayPlan);
 $('#perPerson').textContent=money(Math.round(dayPlan/3));
+$('#overviewPerPerson').textContent=money(Math.round(dayPlan/3));
+$('#overviewBudgetCompact').textContent='≈'+Math.round(dayPlan/1000)+'k';
+$('#overviewBudgetText').textContent='Aktuell gruppbudget '+money(dayPlan)+' exklusive flyg, inklusive ungefär 10 % reserv.';
 }
 renderDailyBudget();
 
 const checked=get('usa2027-checks-v2',{});
 $('#checks').innerHTML=tasks.map((t,i)=>'<label><input type="checkbox" data-check="'+i+'" '+(checked[i]?'checked':'')+'><span><b>'+t.title+'</b><small>'+t.note+'</small></span></label>').join('');
-$$('[data-check]').forEach(e=>e.onchange=()=>{checked[e.dataset.check]=e.checked;save('usa2027-checks-v2',checked)});
+function updateTaskStatus(){$('#overviewTasks').textContent=tasks.filter((_,i)=>!checked[i]).length+' kvar'}
+$$('[data-check]').forEach(e=>e.onchange=()=>{checked[e.dataset.check]=e.checked;save('usa2027-checks-v2',checked);updateTaskStatus()});
+updateTaskStatus();
 
 $('#diary').value=get('usa2027-diary','');
 $('#diary').oninput=e=>save('usa2027-diary',e.target.value);
-$('#export').onclick=()=>{const blob=new Blob([$('#diary').value],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='USA2027-dagbok.txt';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+function download(name,data,type){const blob=new Blob([data],{type});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+$('#exportDiary').onclick=()=>download('USA2027-dagbok.txt',$('#diary').value,'text/plain;charset=utf-8');
+$('#exportPlan').onclick=()=>{
+ const data={version:1,exportedAt:new Date().toISOString(),hotelBookings,budget,checks:checked,diary:$('#diary').value,routeDone,routeNotes};
+ download('USA2027-reseplan.json',JSON.stringify(data,null,2),'application/json;charset=utf-8');
+};
+$('#importPlan').onchange=async e=>{
+ const status=$('#importStatus');
+ try{
+  const data=JSON.parse(await e.target.files[0].text());
+  if(!data||data.version!==1) throw new Error('Felaktigt filformat');
+  if(data.hotelBookings) save('usa2027-hotel-bookings',data.hotelBookings);
+  if(data.budget) save('usa2027-budget-v2',data.budget);
+  if(data.checks) save('usa2027-checks-v2',data.checks);
+  if(typeof data.diary==='string') save('usa2027-diary',data.diary);
+  if(data.routeDone) save('usa2027-route-done',data.routeDone);
+  if(data.routeNotes) save('usa2027-route-notes',data.routeNotes);
+  status.textContent='Reseplanen importerades. Sidan uppdateras…';
+  setTimeout(()=>location.reload(),700);
+ }catch(error){status.textContent='Kunde inte importera filen. Kontrollera att det är en export från USA2027.'}
+};

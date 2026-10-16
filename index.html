@@ -4,11 +4,21 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#14263a">
+  <meta name="description" content="Reseplan för Route 66 från Los Angeles till Chicago, 29 april–16 maj 2027, med rutt, boenden, budget och checklista.">
+  <meta property="og:title" content="USA2027 · Route 66">
+  <meta property="og:description" content="Vår Route 66-roadtrip från Los Angeles till Chicago med planerade stopp, boenden och budget.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://biggles22.github.io/USA2027/assets/oversiktskarta-route66.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="USA2027">
   <title>USA2027 | Route 66</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
   <link rel="stylesheet" href="style.css?v=20261016r">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 <body>
+<a class="skip-link" href="#main-content">Hoppa till innehållet</a>
 <header class="hero">
   <div class="top">
     <b>★ USA<span>2027</span></b>
@@ -39,21 +49,21 @@
   </div>
 </header>
 
-<nav aria-label="Resans flikar" id="nav">
-  <button type="button" data-page="start" class="active" aria-current="page">Översikt</button>
-  <button type="button" data-page="flyg">✈ Flyg</button>
-  <button type="button" data-page="bil">🚙 Bil</button>
-  <button type="button" data-page="hotell">🛏 Boende</button>
-  <button type="button" data-page="rutt">🛣 Dag för dag</button>
-  <button type="button" data-page="kostnader">💰 Kostnader</button>
-  <button type="button" data-page="dagbudget">📆 Dagbudget</button>
-  <button type="button" data-page="checklista">✓ Checklista</button>
-  <button type="button" data-page="dagbok">Dagbok</button>
+<nav aria-label="Resans flikar" id="nav" role="tablist">
+  <button type="button" id="tab-start" role="tab" aria-controls="start" aria-selected="true" tabindex="0" data-page="start" class="active">Översikt</button>
+  <button type="button" id="tab-flyg" role="tab" aria-controls="flyg" aria-selected="false" tabindex="-1" data-page="flyg">✈ Flyg</button>
+  <button type="button" id="tab-bil" role="tab" aria-controls="bil" aria-selected="false" tabindex="-1" data-page="bil">🚙 Bil</button>
+  <button type="button" id="tab-hotell" role="tab" aria-controls="hotell" aria-selected="false" tabindex="-1" data-page="hotell">🛏 Boende</button>
+  <button type="button" id="tab-rutt" role="tab" aria-controls="rutt" aria-selected="false" tabindex="-1" data-page="rutt">🛣 Dag för dag</button>
+  <button type="button" id="tab-kostnader" role="tab" aria-controls="kostnader" aria-selected="false" tabindex="-1" data-page="kostnader">💰 Kostnader</button>
+  <button type="button" id="tab-dagbudget" role="tab" aria-controls="dagbudget" aria-selected="false" tabindex="-1" data-page="dagbudget">📆 Dagbudget</button>
+  <button type="button" id="tab-checklista" role="tab" aria-controls="checklista" aria-selected="false" tabindex="-1" data-page="checklista">✓ Checklista</button>
+  <button type="button" id="tab-dagbok" role="tab" aria-controls="dagbok" aria-selected="false" tabindex="-1" data-page="dagbok">Dagbok</button>
 </nav>
 
-<main>
-<section id="start" class="page active">
-  <div class="heading">
+<main id="main-content">
+<section id="start" class="page active" role="tabpanel" aria-labelledby="tab-start">
+  <div class="heading overview-heading">
     <small>FASTSTÄLLD GRUNDPLAN</small>
     <h2>Route 66 · 29 april–15 maj.</h2>
     <p>Landning i Los Angeles den 29 april, en natt i Santa Monica och tidig start mot Las Vegas nästa morgon. Hemresa från Chicago O'Hare den 15 maj.</p>
@@ -82,6 +92,13 @@
     </a>
   </section>
 
+  <div class="overview-status" aria-label="Aktuell planeringsstatus">
+    <article><small>BOENDEN BOKADE</small><strong id="overviewHotels">0 / 13</strong><button type="button" data-jump="hotell">Hantera boenden</button></article>
+    <article><small>ATT GÖRA</small><strong id="overviewTasks">12 kvar</strong><button type="button" data-jump="checklista">Öppna checklistan</button></article>
+    <article><small>BUDGET / PERSON</small><strong id="overviewPerPerson">0 kr</strong><button type="button" data-jump="kostnader">Se budgeten</button></article>
+    <article><small>RESDAGAR KLARA</small><strong id="overviewDays">0 / 17</strong><button type="button" data-jump="rutt">Visa rutten</button></article>
+  </div>
+
   <div class="cards">
     <article>
       <div class="symbol">29/4</div>
@@ -96,9 +113,9 @@
       <button data-jump="hotell">Se boenden →</button>
     </article>
     <article>
-      <div class="symbol">≈97k</div>
+      <div class="symbol" id="overviewBudgetCompact">≈97k</div>
       <h3>Resebudget</h3>
-      <p>Rekommenderad gruppbudget cirka 97 000 kr exklusive flyg, inklusive ungefär 10 % reserv.</p>
+      <p id="overviewBudgetText">Rekommenderad gruppbudget exklusive flyg, inklusive ungefär 10 % reserv.</p>
       <button data-jump="kostnader">Se budgeten →</button>
     </article>
   </div>
@@ -114,7 +131,7 @@
   <div class="note"><strong>Planeringsprincip:</strong> ett rum för tre vuxna där det fungerar, klassiska motell där de tillför upplevelse, bättre kedjehotell där läge och komfort är viktigare.</div>
 </section>
 
-<section id="flyg" class="page">
+<section id="flyg" class="page" role="tabpanel" aria-labelledby="tab-flyg" hidden>
   <div class="heading">
     <small>01 / TRANSPORT</small>
     <h2>Flyg</h2>
@@ -160,7 +177,7 @@
   </div>
 </section>
 
-<section id="bil" class="page">
+<section id="bil" class="page" role="tabpanel" aria-labelledby="tab-bil" hidden>
   <div class="heading">
     <small>02 / TRANSPORT</small>
     <h2>Hyrbil</h2>
@@ -183,10 +200,10 @@
   <div class="note">Beräknad total körning: <strong>cirka 4 300–4 600 km</strong>. Bränslebudget: <strong>cirka 5 000 kr</strong>.</div>
 </section>
 
-<section id="hotell" class="page">
+<section id="hotell" class="page" role="tabpanel" aria-labelledby="tab-hotell" hidden>
   <div class="heading">
     <small>03 / BOENDE</small>
-    <h2>Motell & hotell</h2>
+    <h2>Motell &amp; hotell</h2>
     <p>16 nätter. Priserna är planeringspriser i SEK för tre personer och ska ersättas med bokat slutpris när respektive boende är klart.</p>
   </div>
 
@@ -201,7 +218,8 @@
 
   <div class="tablewrap">
     <table>
-      <thead><tr><th>Datum</th><th>Ort</th><th>Boende</th><th>Rum</th><th>Budget</th><th>Bokat pris</th><th>Avvikelse</th><th>Prioritet</th></tr></thead>
+      <caption>Planerade boenden och bokade priser</caption>
+      <thead><tr><th scope="col">Datum</th><th scope="col">Ort</th><th scope="col">Boende</th><th scope="col">Rum</th><th scope="col">Budget</th><th scope="col">Bokat pris</th><th scope="col">Avvikelse</th><th scope="col">Prioritet</th></tr></thead>
       <tbody id="hotels"></tbody>
     </table>
   </div>
@@ -221,7 +239,7 @@
   <div id="hotelDetails" class="hotel-detail-grid"></div>
 </section>
 
-<section id="rutt" class="page">
+<section id="rutt" class="page" role="tabpanel" aria-labelledby="tab-rutt" hidden>
   <div class="heading">
     <small>04 / ROAD TRIP</small>
     <h2>Dag för dag.</h2>
@@ -231,7 +249,7 @@
     <div class="route-feature-copy">
       <small>5 MAJ · ALBUQUERQUE</small>
       <h3>Breaking Bad-runda</h3>
-      <p>En kul extrarunda under vilodagen i Albuquerque med fem klassiska inspelningsplatser från Breaking Bad. Kartan samlar Walter Whites hus, Hank & Maries hus, Jesses hus, A1A Car Wash och Los Pollos Hermanos/Twisters.</p>
+      <p>En kul extrarunda under vilodagen i Albuquerque med fem klassiska inspelningsplatser från Breaking Bad. Kartan samlar Walter Whites hus, Hank &amp; Maries hus, Jesses hus, A1A Car Wash och Los Pollos Hermanos/Twisters.</p>
       <p class="muted"><strong>Obs:</strong> flera platser är privata bostäder. Titta från allmän plats, stör inte de boende och följ skyltning på plats.</p>
       <a class="feature-link" id="bbMapTextLink" href="assets/breaking-bad-albuquerque-hires.jpg">Öppna kartan större →</a>
     </div>
@@ -239,10 +257,14 @@
       <img id="bbMapImage" src="assets/breaking-bad-albuquerque-hires.jpg" alt="Breaking Bad-runda i Albuquerque med fem klassiska inspelningsplatser" loading="lazy">
     </a>
   </div>
+  <div class="route-progress" aria-live="polite">
+    <div><small>RESDAGAR GENOMGÅNGNA</small><strong id="routeProgress">0 / 17</strong></div>
+    <div class="progress-track" aria-hidden="true"><span id="routeProgressBar"></span></div>
+  </div>
   <div id="stops" class="stops"></div>
 </section>
 
-<section id="kostnader" class="page">
+<section id="kostnader" class="page" role="tabpanel" aria-labelledby="tab-kostnader" hidden>
   <div class="heading">
     <small>05 / RESEKASSA</small>
     <h2>Hela resebudgeten.</h2>
@@ -254,7 +276,7 @@
   <div class="per-person"><span>Per person inkl. reserv</span><strong id="perPerson">0 kr</strong><small>Flygbiljetter tillkommer.</small></div>
 </section>
 
-<section id="dagbudget" class="page">
+<section id="dagbudget" class="page" role="tabpanel" aria-labelledby="tab-dagbudget" hidden>
   <div class="heading">
     <small>06 / DAG FÖR DAG</small>
     <h2>Vad kostar varje resdag?</h2>
@@ -268,8 +290,9 @@
   </div>
   <div class="tablewrap daily-table">
     <table>
+      <caption>Budget per resdag med löpande totalsumma</caption>
       <thead>
-        <tr><th>Datum</th><th>Plats / natt</th><th>Hotell budget</th><th>Bokat hotell</th><th>Avvikelse hotell</th><th>Mat</th><th>Bil inkl. förs.</th><th>Bensin</th><th>Park./tull</th><th>Aktiviteter</th><th>Övrigt</th><th>Dagssumma</th><th>Löpande</th></tr>
+        <tr><th scope="col">Datum</th><th scope="col">Plats / natt</th><th scope="col">Hotell budget</th><th scope="col">Bokat hotell</th><th scope="col">Avvikelse hotell</th><th scope="col">Mat</th><th scope="col">Bil inkl. förs.</th><th scope="col">Bensin</th><th scope="col">Park./tull</th><th scope="col">Aktiviteter</th><th scope="col">Övrigt</th><th scope="col">Dagssumma</th><th scope="col">Löpande</th></tr>
       </thead>
       <tbody id="dailyBudget"></tbody>
     </table>
@@ -277,16 +300,16 @@
   <div class="note"><strong>Så läses tabellen:</strong> hotellbudgeten belastas per natt. När du fyller i ett bokat totalpris under <em>Boende</em> fördelas det automatiskt över vistelsens nätter här och avvikelsen visas per natt. Hyrbil + försäkring är utslaget över resdagarna. Reserven på 10 % ligger separat.</div>
 </section>
 
-<section id="checklista" class="page">
+<section id="checklista" class="page" role="tabpanel" aria-labelledby="tab-checklista" hidden>
   <div class="heading">
     <small>07 / FÖRBEREDELSER</small>
-    <h2>Bokningsordning & att göra.</h2>
+    <h2>Bokningsordning &amp; att göra.</h2>
     <p>Bocka av i takt med att resan blir bokad.</p>
   </div>
   <div id="checks" class="checks"></div>
 </section>
 
-<section id="dagbok" class="page">
+<section id="dagbok" class="page" role="tabpanel" aria-labelledby="tab-dagbok" hidden>
   <div class="heading">
     <small>08 / RESEMINNEN</small>
     <h2>Vår resedagbok.</h2>
@@ -294,12 +317,18 @@
   </div>
   <label for="diary">Anteckningar</label>
   <textarea id="diary" rows="12" placeholder="Idag körde vi längs Route 66..."></textarea>
-  <p class="muted">Sparas automatiskt i den här webbläsaren, inte på GitHub.</p>
-  <button class="primary" id="export">Ladda ner anteckningarna</button>
+  <p class="muted">Sparas automatiskt i den här webbläsaren. Exportera en säkerhetskopia för att flytta all planeringsdata till en annan enhet.</p>
+  <div class="data-actions">
+    <button class="primary" id="exportDiary" type="button">Ladda ner dagboken</button>
+    <button class="secondary" id="exportPlan" type="button">Exportera hela reseplanen</button>
+    <label class="secondary file-button" for="importPlan">Importera reseplan</label>
+    <input id="importPlan" type="file" accept="application/json,.json" hidden>
+  </div>
+  <p class="import-status muted" id="importStatus" role="status"></p>
 </section>
 </main>
 
-<div class="bb-lightbox" id="bbLightbox" aria-hidden="true" role="dialog" aria-label="Kartvisare">
+<div class="bb-lightbox" id="bbLightbox" role="dialog" aria-modal="true" aria-label="Kartvisare" hidden>
   <button class="bb-lightbox-close" id="bbLightboxClose" type="button" aria-label="Stäng kartan">×</button>
   <div class="bb-lightbox-inner">
     <img id="bbModalImage" alt="Breaking Bad-runda i Albuquerque med fem klassiska inspelningsplatser">

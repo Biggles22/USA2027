@@ -1,0 +1,18 @@
+{
+  "name": "USA2027 · Route 66",
+  "short_name": "USA2027",
+  "description": "Reseplan för Route 66 från Los Angeles till Chicago.",
+  "start_url": "./#start",
+  "display": "standalone",
+  "background_color": "#f5f3ee",
+  "theme_color": "#14263a",
+  "lang": "sv",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
