@@ -87,7 +87,7 @@ const tasks=[
 {title:'Väderkontroll veckan före avresa',note:'Extra fokus på Grand Canyon samt kraftiga våråskväder i Oklahoma/Missouri.'}
 ];
 
-const $=s=>document.querySelector(s),$=s=>document.querySelectorAll(s);
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
 const get=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))??f}catch{return f}},save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
 const money=n=>new Intl.NumberFormat('sv-SE').format(Math.round(n))+' kr';
 function show(id){$$('.page').forEach(p=>p.classList.toggle('active',p.id===id));$$('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo({top:0,behavior:'smooth'})}
