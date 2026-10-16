@@ -140,21 +140,7 @@ async function loadBreakingBadMap(){
 }
 loadBreakingBadMap();
 
-async function loadRouteOverviewMap(){
-  const img=$('#routeOverviewImage');
-  if(!img) return;
-  try{
-    const r=await fetch('assets/route66-overview-map.b64',{cache:'force-cache'});
-    if(!r.ok) throw new Error('Kunde inte läsa översiktskartan');
-    const data=(await r.text()).trim();
-    img.src='data:image/webp;base64,'+data;
-  }catch(e){
-    img.alt='Översiktskartan kunde inte laddas.';
-    const card=$('.route-overview-map');
-    if(card) card.classList.add('image-load-error');
-  }
-}
-loadRouteOverviewMap();
+
 
 function openRouteOverviewMap(e){
   if(e) e.preventDefault();
