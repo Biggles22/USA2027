@@ -140,6 +140,35 @@ async function loadBreakingBadMap(){
 }
 loadBreakingBadMap();
 
+function openBreakingBadLightbox(e){
+  if(e) e.preventDefault();
+  const source=$('#bbMapImage');
+  const modal=$('#bbModalImage');
+  const box=$('#bbLightbox');
+  if(!source || !source.src || !modal || !box) return;
+  modal.src=source.src;
+  box.classList.add('open');
+  box.setAttribute('aria-hidden','false');
+  document.body.classList.add('no-scroll');
+}
+function closeBreakingBadLightbox(){
+  const box=$('#bbLightbox');
+  if(!box) return;
+  box.classList.remove('open');
+  box.setAttribute('aria-hidden','true');
+  document.body.classList.remove('no-scroll');
+}
+const bbTextLink=$('#bbMapTextLink');
+const bbImageLink=$('#bbMapLink');
+const bbClose=$('#bbLightboxClose');
+const bbBox=$('#bbLightbox');
+if(bbTextLink) bbTextLink.addEventListener('click',openBreakingBadLightbox);
+if(bbImageLink) bbImageLink.addEventListener('click',openBreakingBadLightbox);
+if(bbClose) bbClose.addEventListener('click',closeBreakingBadLightbox);
+if(bbBox) bbBox.addEventListener('click',function(e){if(e.target===bbBox) closeBreakingBadLightbox();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape') closeBreakingBadLightbox();});
+
+
 
 const hotelBookings=get('usa2027-hotel-bookings',{});
 function varianceHtml(plan,actual){
