@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#14263a">
   <title>USA2027 | Route 66</title>
-  <link rel="stylesheet" href="style.css?v=20261016q">
+  <link rel="stylesheet" href="style.css?v=20261016r">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 <body>
 <header class="hero">
@@ -188,6 +189,16 @@
     <h2>Motell & hotell</h2>
     <p>16 nätter. Priserna är planeringspriser i SEK för tre personer och ska ersättas med bokat slutpris när respektive boende är klart.</p>
   </div>
+
+  <section class="hotel-map-panel">
+    <div class="hotel-subheading">
+      <small>ALLA 13 BOENDEN</small>
+      <h3>Översiktskarta</h3>
+      <p>Från Santa Monica till sista natten vid O’Hare. Klicka på en markör för datum, boende och adress.</p>
+    </div>
+    <div id="hotelMap" aria-label="Karta över alla planerade hotell"></div>
+  </section>
+
   <div class="tablewrap">
     <table>
       <thead><tr><th>Datum</th><th>Ort</th><th>Boende</th><th>Rum</th><th>Budget</th><th>Bokat pris</th><th>Avvikelse</th><th>Prioritet</th></tr></thead>
@@ -201,6 +212,13 @@
     <article id="bookedVarianceCard"><small>AVVIKELSE</small><strong id="bookedVariance">0 kr</strong><span id="bookedVarianceText">ingen bokning ännu</span></article>
   </div>
   <div class="note"><strong>Boka först:</strong> Blue Swallow → Rockwood → El Vado → The Lodge. De små historiska boendena har få rum och kan bli fulla långt före kedjehotellen.</div>
+
+  <div class="hotel-detail-heading">
+    <small>BOENDENA I DETALJ</small>
+    <h3>Varje stopp, bild för bild</h3>
+    <p>Mer om läge, rum, faciliteter och varför respektive boende passar just den här resan.</p>
+  </div>
+  <div id="hotelDetails" class="hotel-detail-grid"></div>
 </section>
 
 <section id="rutt" class="page">
@@ -293,6 +311,7 @@
   <span>LOS ANGELES → CHICAGO · ROUTE 66</span>
   <small>29 APRIL – 16 MAJ 2027</small>
 </footer>
-<script src="script.js?v=20261016q"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="script.js?v=20261016r"></script>
 </body>
 </html>
