@@ -116,6 +116,30 @@ function updateCountdown(){
 updateCountdown();
 setInterval(updateCountdown,1000);
 
+async function loadBreakingBadMap(){
+  const img=$('#bbMapImage');
+  if(!img) return;
+  try{
+    const files=['assets/bb1.txt','assets/bb2.txt','assets/bb3.txt','assets/bb4.txt'];
+    const parts=await Promise.all(files.map(async function(f){
+      const r=await fetch(f,{cache:'force-cache'});
+      if(!r.ok) throw new Error('Kunde inte läsa '+f);
+      return (await r.text()).trim();
+    }));
+    const src='data:image/jpeg;base64,'+parts.join('');
+    img.src=src;
+    const link=$('#bbMapLink');
+    const textLink=$('#bbMapTextLink');
+    if(link) link.href=src;
+    if(textLink) textLink.href=src;
+  }catch(e){
+    img.alt='Breaking Bad-kartan kunde inte laddas.';
+    const box=$('.route-feature-image');
+    if(box) box.classList.add('image-load-error');
+  }
+}
+loadBreakingBadMap();
+
 
 const hotelBookings=get('usa2027-hotel-bookings',{});
 function varianceHtml(plan,actual){
