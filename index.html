@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#14263a">
   <title>USA2027 | Route 66</title>
-  <link rel="stylesheet" href="style.css?v=20261016p">
+  <link rel="stylesheet" href="style.css?v=20261016q">
 </head>
 <body>
 <header class="hero">
@@ -39,15 +39,15 @@
 </header>
 
 <nav aria-label="Resans flikar" id="nav">
-  <button data-page="start" class="active">Översikt</button>
-  <button data-page="flyg">✈ Flyg</button>
-  <button data-page="bil">🚙 Bil</button>
-  <button data-page="hotell">🛏 Boende</button>
-  <button data-page="rutt">🛣 Dag för dag</button>
-  <button data-page="kostnader">💰 Kostnader</button>
-  <button data-page="dagbudget">📆 Dagbudget</button>
-  <button data-page="checklista">✓ Checklista</button>
-  <button data-page="dagbok">Dagbok</button>
+  <button type="button" data-page="start" class="active" aria-current="page">Översikt</button>
+  <button type="button" data-page="flyg">✈ Flyg</button>
+  <button type="button" data-page="bil">🚙 Bil</button>
+  <button type="button" data-page="hotell">🛏 Boende</button>
+  <button type="button" data-page="rutt">🛣 Dag för dag</button>
+  <button type="button" data-page="kostnader">💰 Kostnader</button>
+  <button type="button" data-page="dagbudget">📆 Dagbudget</button>
+  <button type="button" data-page="checklista">✓ Checklista</button>
+  <button type="button" data-page="dagbok">Dagbok</button>
 </nav>
 
 <main>
@@ -67,12 +67,17 @@
     </div>
 
     <a href="assets/oversiktskarta-route66.png" target="_blank" rel="noopener" class="route-map-link">
-      <img
-        src="assets/oversiktskarta-route66.png"
-        alt="Översiktskarta över Route 66-resan från Los Angeles till Chicago"
-        class="route-map-image"
-        loading="lazy"
-      >
+      <picture>
+        <source srcset="assets/oversiktskarta-route66.webp" type="image/webp">
+        <img
+          src="assets/oversiktskarta-route66.png"
+          alt="Översiktskarta över Route 66-resan från Los Angeles via Las Vegas och Grand Canyon till Chicago"
+          class="route-map-image"
+          width="1672"
+          height="941"
+          loading="lazy"
+        >
+      </picture>
     </a>
   </section>
 
@@ -288,6 +293,6 @@
   <span>LOS ANGELES → CHICAGO · ROUTE 66</span>
   <small>29 APRIL – 16 MAJ 2027</small>
 </footer>
-<script src="script.js?v=20261016p"></script>
+<script src="script.js?v=20261016q"></script>
 </body>
 </html>

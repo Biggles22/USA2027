@@ -90,8 +90,30 @@ const tasks=[
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
 const get=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))??f}catch{return f}},save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
 const money=n=>new Intl.NumberFormat('sv-SE').format(Math.round(n))+' kr';
-function show(id){$$('.page').forEach(p=>p.classList.toggle('active',p.id===id));$$('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo({top:0,behavior:'smooth'})}
-$$('[data-page]').forEach(b=>b.onclick=()=>show(b.dataset.page));$$('[data-jump]').forEach(b=>b.onclick=()=>show(b.dataset.jump));
+const defaults=Object.fromEntries(costs.map(c=>[c.key,c.value]));
+const budget=get('usa2027-budget-v2',defaults);
+const pageIds=[...$$('[data-page]')].map(b=>b.dataset.page);
+function show(id,scroll=true){
+  if(!pageIds.includes(id)) id='start';
+  $$('.page').forEach(p=>p.classList.toggle('active',p.id===id));
+  $$('[data-page]').forEach(b=>{
+    const active=b.dataset.page===id;
+    b.classList.toggle('active',active);
+    if(active){
+      b.setAttribute('aria-current','page');
+      b.scrollIntoView({behavior:scroll?'smooth':'auto',block:'nearest',inline:'center'});
+    }else b.removeAttribute('aria-current');
+  });
+  if(scroll) window.scrollTo({top:0,behavior:'smooth'});
+}
+function navigate(id){
+  if(location.hash==='#'+id) show(id);
+  else location.hash=id;
+}
+$$('[data-page]').forEach(b=>b.onclick=()=>navigate(b.dataset.page));
+$$('[data-jump]').forEach(b=>b.onclick=()=>navigate(b.dataset.jump));
+window.addEventListener('hashchange',()=>show(location.hash.slice(1)));
+show(location.hash.slice(1)||'start',false);
 
 function updateCountdown(){
   const target=new Date('2027-04-29T09:55:00+02:00').getTime();
@@ -171,6 +193,10 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape') closeBreaki
 
 
 const hotelBookings=get('usa2027-hotel-bookings',{});
+function plannedHotel(h){
+ const originalTotal=hotels.reduce((s,hotel)=>s+hotel.plan,0);
+ return originalTotal?h.plan*Number(budget['Boende']||0)/originalTotal:0;
+}
 function varianceHtml(plan,actual){
  if(actual===null||actual===undefined||actual==='') return '<span class="variance neutral">–</span>';
  const diff=Number(actual)-plan, cls=diff<0?'good':(diff>0?'bad':'neutral'), sign=diff>0?'+':'';
@@ -181,10 +207,11 @@ function renderHotels(){
    const cls=h.priority==='BOKA FÖRST'?'priority':(h.priority==='Normal'?'normal':'');
    const actual=hotelBookings[h.id];
    const actualVal=(actual===undefined||actual===null||actual==='')?'':Number(actual);
+   const currentPlan=plannedHotel(h);
    return '<tr><td>'+h.date+'</td><td>'+h.city+'</td><td><strong>'+h.name+'</strong></td><td>'+h.room+'</td>'+
-     '<td class="plan-price"><strong>'+money(h.plan)+'</strong><small>spann '+h.price+'</small></td>'+
+     '<td class="plan-price"><strong>'+money(currentPlan)+'</strong><small>spann '+h.price+'</small></td>'+
      '<td><input class="booked-price" type="number" min="0" step="1" data-hotel-booked="'+h.id+'" value="'+actualVal+'" placeholder="0"></td>'+
-     '<td data-hotel-var="'+h.id+'">'+varianceHtml(h.plan,actualVal)+'</td>'+
+     '<td data-hotel-var="'+h.id+'">'+varianceHtml(currentPlan,actualVal)+'</td>'+
      '<td><span class="status '+cls+'">'+h.priority+'</span></td></tr>';
  }).join('');
  $$('[data-hotel-booked]').forEach(e=>e.oninput=()=>{
@@ -194,13 +221,13 @@ function renderHotels(){
    updateBookingSummary();
    renderDailyBudget();
    const h=hotels.find(x=>x.id===e.dataset.hotelBooked);
-   document.querySelector('[data-hotel-var="'+h.id+'"]').innerHTML=varianceHtml(h.plan,v);
+   document.querySelector('[data-hotel-var="'+h.id+'"]').innerHTML=varianceHtml(plannedHotel(h),v);
  });
  updateBookingSummary();
 }
 function updateBookingSummary(){
  const booked=hotels.filter(h=>hotelBookings[h.id]!==undefined&&hotelBookings[h.id]!==null&&hotelBookings[h.id]!=='');
- const budgetBooked=booked.reduce((s,h)=>s+h.plan,0);
+ const budgetBooked=booked.reduce((s,h)=>s+plannedHotel(h),0);
  const actual=booked.reduce((s,h)=>s+Number(hotelBookings[h.id]||0),0);
  const diff=actual-budgetBooked;
  $('#bookedCount').textContent=booked.length+' / '+hotels.length;
@@ -218,11 +245,14 @@ const bbFeature=$('.breaking-bad-feature');
 const abqDay=document.querySelector('.stop[data-date="5 maj"]');
 if(bbFeature&&abqDay) abqDay.insertAdjacentElement('afterend',bbFeature);
 
-const defaults=Object.fromEntries(costs.map(c=>[c.key,c.value]));
-const budget=get('usa2027-budget-v2',defaults);
 $('#budget').innerHTML=costs.map((c,i)=>'<label for="c'+i+'">'+c.key+'<small>'+c.note+'</small><input id="c'+i+'" type="number" min="0" step="50" data-cost="'+c.key+'" value="'+(Number(budget[c.key]??c.value))+'"></label>').join('');
-function sum(){let t=0;$$('[data-cost]').forEach(e=>{const n=Math.max(0,Number(e.value)||0);budget[e.dataset.cost]=n;t+=n});const r=Math.round(t*1.10);$('#total').textContent=new Intl.NumberFormat('sv-SE').format(t)+' kr';$('#recommended').textContent=new Intl.NumberFormat('sv-SE').format(r)+' kr';$('#perPerson').textContent=new Intl.NumberFormat('sv-SE').format(Math.round(r/3))+' kr';save('usa2027-budget-v2',budget)}
-$$('[data-cost]').forEach(e=>e.oninput=sum);sum();
+function sum(){
+  $$('[data-cost]').forEach(e=>budget[e.dataset.cost]=Math.max(0,Number(e.value)||0));
+  save('usa2027-budget-v2',budget);
+  renderHotels();
+  renderDailyBudget();
+}
+$$('[data-cost]').forEach(e=>e.oninput=sum);
 
 
 function bookedHotelShare(date){
@@ -232,27 +262,60 @@ function bookedHotelShare(date){
  if(actual===undefined||actual===null||actual==='') return null;
  return Number(actual)/h.nights;
 }
+const sourceTotals={
+ hotel:dailyBudget.reduce((s,d)=>s+d.hotel,0),
+ food:dailyBudget.reduce((s,d)=>s+d.food,0),
+ car:dailyBudget.reduce((s,d)=>s+d.car,0),
+ fuel:dailyBudget.reduce((s,d)=>s+d.fuel,0),
+ parking:dailyBudget.reduce((s,d)=>s+d.parking,0),
+ activity:dailyBudget.reduce((s,d)=>s+d.activity,0),
+ misc:preTrip.misc+dailyBudget.reduce((s,d)=>s+d.misc,0)
+};
+function scale(value,source,target){return source?value*target/source:0}
+function currentTargets(){
+ return {
+  hotel:Number(budget['Boende']||0),
+  food:Number(budget['Mat & dryck']||0),
+  car:Number(budget['Hyrbil']||0)+Number(budget['Hyrbilsförsäkring']||0),
+  fuel:Number(budget['Bensin']||0),
+  parking:Number(budget['Parkering & vägtullar']||0),
+  activity:Number(budget['Nationalparkspass']||0)+Number(budget['Hoover Dam']||0)+Number(budget['Gateway Arch']||0)+Number(budget['Route 66 Museum']||0)+Number(budget['Övriga attraktioner']||0),
+  misc:Number(budget['ESTA']||0)+Number(budget['eSIM, tvätt & småutgifter']||0)
+ };
+}
 function renderDailyBudget(){
-let running=preTrip.misc;
-const preRow='<tr class="pretrip"><td>'+preTrip.date+'</td><td>'+preTrip.place+'</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>'+money(preTrip.misc)+'</td><td class="total-day">'+money(preTrip.misc)+'</td><td class="running">'+money(running)+'</td></tr>';
+const targets=currentTargets();
+const preMisc=scale(preTrip.misc,sourceTotals.misc,targets.misc);
+let running=preMisc;
+const preRow='<tr class="pretrip"><td>'+preTrip.date+'</td><td>'+preTrip.place+'</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>'+money(preMisc)+'</td><td class="total-day">'+money(preMisc)+'</td><td class="running">'+money(running)+'</td></tr>';
 const dayRows=dailyBudget.map(d=>{
+  const plannedHotel=scale(d.hotel,sourceTotals.hotel,targets.hotel);
   const actualHotel=bookedHotelShare(d.date);
-  const hotelDiff=actualHotel===null?null:actualHotel-d.hotel;
-  const total=d.hotel+d.food+d.car+d.fuel+d.parking+d.activity+d.misc;
+  const hotelDiff=actualHotel===null?null:actualHotel-plannedHotel;
+  const food=scale(d.food,sourceTotals.food,targets.food);
+  const car=scale(d.car,sourceTotals.car,targets.car);
+  const fuel=scale(d.fuel,sourceTotals.fuel,targets.fuel);
+  const parking=scale(d.parking,sourceTotals.parking,targets.parking);
+  const activity=scale(d.activity,sourceTotals.activity,targets.activity);
+  const misc=scale(d.misc,sourceTotals.misc,targets.misc);
+  const total=(actualHotel===null?plannedHotel:actualHotel)+food+car+fuel+parking+activity+misc;
   running+=total;
   const actualHtml=actualHotel===null?'<span class="actual-empty">–</span>':money(actualHotel);
   const diffHtml=hotelDiff===null?'<span class="variance neutral">–</span>':'<span class="variance '+(hotelDiff<0?'good':hotelDiff>0?'bad':'neutral')+'">'+(hotelDiff>0?'+':'')+money(hotelDiff)+'</span>';
-  return '<tr><td>'+d.date+'</td><td>'+d.place+'</td><td>'+money(d.hotel)+'</td><td>'+actualHtml+'</td><td>'+diffHtml+'</td><td>'+money(d.food)+'</td><td>'+money(d.car)+'</td><td>'+money(d.fuel)+'</td><td>'+money(d.parking)+'</td><td>'+money(d.activity)+'</td><td>'+money(d.misc)+'</td><td class="total-day">'+money(total)+'</td><td class="running">'+money(running)+'</td></tr>';
+  return '<tr><td>'+d.date+'</td><td>'+d.place+'</td><td>'+money(plannedHotel)+'</td><td>'+actualHtml+'</td><td>'+diffHtml+'</td><td>'+money(food)+'</td><td>'+money(car)+'</td><td>'+money(fuel)+'</td><td>'+money(parking)+'</td><td>'+money(activity)+'</td><td>'+money(misc)+'</td><td class="total-day">'+money(total)+'</td><td class="running">'+money(running)+'</td></tr>';
 }).join('');
 $('#dailyBudget').innerHTML=preRow+dayRows;
-const tripDaysTotal=dailyBudget.reduce((s,d)=>s+d.hotel+d.food+d.car+d.fuel+d.parking+d.activity+d.misc,0);
-const dayBase=tripDaysTotal+preTrip.misc;
+const dayBase=running;
+const tripDaysTotal=dayBase-preMisc;
 const dayPlan=Math.round(dayBase*1.10);
-$('#preTripTotal').textContent=money(preTrip.misc);
+$('#preTripTotal').textContent=money(preMisc);
 $('#tripDaysTotal').textContent=money(tripDaysTotal);
 $('#dailyBaseTotal').textContent=money(dayBase);
 $('#dailyPlanTotal').textContent=money(dayPlan);
 $('#dailyPerPerson').textContent=money(Math.round(dayPlan/3))+'/person';
+$('#total').textContent=money(dayBase);
+$('#recommended').textContent=money(dayPlan);
+$('#perPerson').textContent=money(Math.round(dayPlan/3));
 }
 renderDailyBudget();
 
