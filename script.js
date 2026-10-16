@@ -87,7 +87,9 @@ const tasks=[
 {title:'Väderkontroll veckan före avresa',note:'Extra fokus på Grand Canyon samt kraftiga våråskväder i Oklahoma/Missouri.'}
 ];
 
-const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+const $=s=>document.querySelector(s),$=s=>document.querySelectorAll(s);
+const get=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))??f}catch{return f}},save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
+const money=n=>new Intl.NumberFormat('sv-SE').format(Math.round(n))+' kr';
 function show(id){$$('.page').forEach(p=>p.classList.toggle('active',p.id===id));$$('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo({top:0,behavior:'smooth'})}
 $$('[data-page]').forEach(b=>b.onclick=()=>show(b.dataset.page));$$('[data-jump]').forEach(b=>b.onclick=()=>show(b.dataset.jump));
 
@@ -136,7 +138,6 @@ renderHotels();
 
 $('#stops').innerHTML=itinerary.map((s,i)=>'<article class="stop"><div class="day">Dag '+(i+1)+'<small>'+s.date+'</small></div><div><h3>'+s.title+'</h3><p>'+s.text+'</p></div><div class="meta"><strong>'+s.km+'</strong>natt: '+s.night+'</div></article>').join('');
 
-const get=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))??f}catch{return f}},save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
 const defaults=Object.fromEntries(costs.map(c=>[c.key,c.value]));
 const budget=get('usa2027-budget-v2',defaults);
 $('#budget').innerHTML=costs.map((c,i)=>'<label for="c'+i+'">'+c.key+'<small>'+c.note+'</small><input id="c'+i+'" type="number" min="0" step="50" data-cost="'+c.key+'" value="'+(Number(budget[c.key]??c.value))+'"></label>').join('');
@@ -144,7 +145,6 @@ function sum(){let t=0;$$('[data-cost]').forEach(e=>{const n=Math.max(0,Number(e
 $$('[data-cost]').forEach(e=>e.oninput=sum);sum();
 
 
-const money=n=>new Intl.NumberFormat('sv-SE').format(Math.round(n))+' kr';
 function bookedHotelShare(date){
  const h=hotels.find(x=>x.dates.includes(date));
  if(!h) return null;
