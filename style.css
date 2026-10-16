@@ -141,3 +141,6 @@ footer{background:#14263a;color:white;padding:35px 25px;display:flex;gap:20px;ju
 .route-feature-image img{display:block;width:100%;height:auto}
 .breaking-bad-feature{border-left:4px solid #8d3b28}
 @media(max-width:800px){.route-feature{grid-template-columns:1fr}.route-feature-image{max-width:420px}}
+
+.route-feature-image img:not([src]){min-height:420px;background:linear-gradient(135deg,#eee8dd,#ddd2c2)}
+.route-feature-image.image-load-error{min-height:220px;display:flex;align-items:center;justify-content:center}
