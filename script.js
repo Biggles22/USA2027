@@ -91,7 +91,7 @@ const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
 const get=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))??f}catch{return f}},save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
 const money=n=>new Intl.NumberFormat('sv-SE').format(Math.round(n))+' kr';
 function show(id){$$('.page').forEach(p=>p.classList.toggle('active',p.id===id));$$('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo({top:0,behavior:'smooth'})}
-$('[data-page]').forEach(b=>b.onclick=()=>show(b.dataset.page));$('[data-jump]').forEach(b=>b.onclick=()=>show(b.dataset.jump));
+$$('[data-page]').forEach(b=>b.onclick=()=>show(b.dataset.page));$$('[data-jump]').forEach(b=>b.onclick=()=>show(b.dataset.jump));
 
 function updateCountdown(){
   const target=new Date('2027-04-29T09:55:00+02:00').getTime();
