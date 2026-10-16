@@ -33,6 +33,7 @@
   <button data-page="hotell">🛏 Boende</button>
   <button data-page="rutt">🛣 Dag för dag</button>
   <button data-page="kostnader">💰 Kostnader</button>
+  <button data-page="dagbudget">📆 Dagbudget</button>
   <button data-page="checklista">✓ Checklista</button>
   <button data-page="dagbok">Dagbok</button>
 </nav>
@@ -158,9 +159,32 @@
   <div class="per-person"><span>Per person inkl. reserv</span><strong id="perPerson">0 kr</strong><small>Flygbiljetter tillkommer.</small></div>
 </section>
 
+<section id="dagbudget" class="page">
+  <div class="heading">
+    <small>06 / DAG FÖR DAG</small>
+    <h2>Vad kostar varje resdag?</h2>
+    <p>Här är hela grundbudgeten fördelad på resan. Bilposten är en daglig andel av hyrbil + hyrbilsförsäkring. Flygbiljetter ingår inte.</p>
+  </div>
+  <div class="daily-summary">
+    <article><small>FÖRE AVRESA</small><strong id="preTripTotal">0 kr</strong><span>ESTA + eSIM</span></article>
+    <article><small>UNDER RESAN</small><strong id="tripDaysTotal">0 kr</strong><span>29 april–15 maj</span></article>
+    <article><small>GRUNDBUDGET</small><strong id="dailyBaseTotal">0 kr</strong><span>utan reserv</span></article>
+    <article class="highlight"><small>INKL. 10 % RESERV</small><strong id="dailyPlanTotal">0 kr</strong><span id="dailyPerPerson">0 kr/person</span></article>
+  </div>
+  <div class="tablewrap daily-table">
+    <table>
+      <thead>
+        <tr><th>Datum</th><th>Plats / natt</th><th>Hotell</th><th>Mat</th><th>Bil inkl. förs.</th><th>Bensin</th><th>Park./tull</th><th>Aktiviteter</th><th>Övrigt</th><th>Dagssumma</th><th>Löpande</th></tr>
+      </thead>
+      <tbody id="dailyBudget"></tbody>
+    </table>
+  </div>
+  <div class="note"><strong>Så läses tabellen:</strong> hotell belastas på den natt ni checkar in, hyrbil + försäkring är utslaget över resdagarna, och större aktiviteter ligger på den dag de används. Reserven på 10 % ligger separat och är inte utsmetad per dag.</div>
+</section>
+
 <section id="checklista" class="page">
   <div class="heading">
-    <small>06 / FÖRBEREDELSER</small>
+    <small>07 / FÖRBEREDELSER</small>
     <h2>Bokningsordning & att göra.</h2>
     <p>Bocka av i takt med att resan blir bokad.</p>
   </div>
@@ -169,7 +193,7 @@
 
 <section id="dagbok" class="page">
   <div class="heading">
-    <small>07 / RESEMINNEN</small>
+    <small>08 / RESEMINNEN</small>
     <h2>Vår resedagbok.</h2>
     <p>Skriv ner minnen, platser och händelser längs vägen.</p>
   </div>
