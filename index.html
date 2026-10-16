@@ -131,9 +131,15 @@
   </div>
   <div class="tablewrap">
     <table>
-      <thead><tr><th>Datum</th><th>Ort</th><th>Boende</th><th>Rum</th><th>Budget</th><th>Prioritet</th></tr></thead>
+      <thead><tr><th>Datum</th><th>Ort</th><th>Boende</th><th>Rum</th><th>Budget</th><th>Bokat pris</th><th>Avvikelse</th><th>Prioritet</th></tr></thead>
       <tbody id="hotels"></tbody>
     </table>
+  </div>
+  <div class="booking-summary">
+    <article><small>BOKADE BOENDEN</small><strong id="bookedCount">0 / 13</strong><span>ifyllda priser</span></article>
+    <article><small>BUDGET FÖR BOKADE</small><strong id="bookedBudget">0 kr</strong><span>samma boenden</span></article>
+    <article><small>FAKTISKT BOKAT</small><strong id="bookedActual">0 kr</strong><span>inmatade slutpriser</span></article>
+    <article id="bookedVarianceCard"><small>AVVIKELSE</small><strong id="bookedVariance">0 kr</strong><span id="bookedVarianceText">ingen bokning ännu</span></article>
   </div>
   <div class="note"><strong>Boka först:</strong> Blue Swallow → Rockwood → El Vado → The Lodge. De små historiska boendena har få rum och kan bli fulla långt före kedjehotellen.</div>
 </section>
@@ -174,12 +180,12 @@
   <div class="tablewrap daily-table">
     <table>
       <thead>
-        <tr><th>Datum</th><th>Plats / natt</th><th>Hotell</th><th>Mat</th><th>Bil inkl. förs.</th><th>Bensin</th><th>Park./tull</th><th>Aktiviteter</th><th>Övrigt</th><th>Dagssumma</th><th>Löpande</th></tr>
+        <tr><th>Datum</th><th>Plats / natt</th><th>Hotell budget</th><th>Bokat hotell</th><th>Avvikelse hotell</th><th>Mat</th><th>Bil inkl. förs.</th><th>Bensin</th><th>Park./tull</th><th>Aktiviteter</th><th>Övrigt</th><th>Dagssumma</th><th>Löpande</th></tr>
       </thead>
       <tbody id="dailyBudget"></tbody>
     </table>
   </div>
-  <div class="note"><strong>Så läses tabellen:</strong> hotell belastas på den natt ni checkar in, hyrbil + försäkring är utslaget över resdagarna, och större aktiviteter ligger på den dag de används. Reserven på 10 % ligger separat och är inte utsmetad per dag.</div>
+  <div class="note"><strong>Så läses tabellen:</strong> hotellbudgeten belastas per natt. När du fyller i ett bokat totalpris under <em>Boende</em> fördelas det automatiskt över vistelsens nätter här och avvikelsen visas per natt. Hyrbil + försäkring är utslaget över resdagarna. Reserven på 10 % ligger separat.</div>
 </section>
 
 <section id="checklista" class="page">
