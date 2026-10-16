@@ -31,9 +31,9 @@ const hotels=[
     "id": "las-vegas",
     "date": "30 apr–2 maj",
     "city": "Las Vegas",
-    "name": "Ellis Island Casino & Hotel",
-    "room": "2 Queen",
-    "price": "3 000–4 200 kr",
+    "name": "Studio 6 Suites Las Vegas, NV – Tropicana",
+    "room": "2 Full Beds – kontrollera plats för 3 vuxna",
+    "price": "Budget uppskattad – verifiera bokningspris",
     "plan": 3600,
     "nights": 2,
     "dates": [
@@ -41,22 +41,22 @@ const hotels=[
       "1 maj"
     ],
     "priority": "Normal",
-    "address": "4250 Koval Ln, Las Vegas, NV 89109",
-    "lat": 36.112447,
-    "lng": -115.16347,
-    "image": "https://cdn.prod.website-files.com/6092d6f09a3178ca121f21b7/6a3451d89de6cac7af4ba3f3_020326_SP_EllisIsland_0839_v1-p-2600.jpeg",
-    "official": "https://www.ellisislandcasino.com/stay",
-    "summary": "Prisvärt hotell strax öster om The Strip med renoverade rum och casino, restauranger och bryggeri alldeles intill.",
+    "address": "195 E Tropicana Ave, Las Vegas, NV 89109",
+    "lat": 36.100439,
+    "lng": -115.164469,
+    "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Crect width='800' height='450' fill='%2314263a'/%3E%3Ctext x='400' y='195' fill='white' font-family='Arial' font-size='62' text-anchor='middle' font-weight='bold'%3ESTUDIO 6 SUITES%3C/text%3E%3Ctext x='400' y='270' fill='%23d9c59a' font-family='Arial' font-size='35' text-anchor='middle'%3ELAS VEGAS · TROPICANA%3C/text%3E%3C/svg%3E",
+    "official": "https://www.studio6.com/property/motel-las-vegas-nv-nevada-us-294165/",
+    "summary": "Prisvärt boende på East Tropicana Avenue, nära södra delen av The Strip och MGM Grand. Ett praktiskt basläger för två nätter i Las Vegas.",
     "features": [
-      "Ca 15 min promenad till Strip",
-      "Double Queen Suite",
-      "Mat och dryck på området",
-      "Praktiskt med bil"
+      "Fri parkering enligt hotellets webbplats",
+      "Utomhuspool",
+      "Kylskåp och pentry enligt hotellets webbplats",
+      "Nära södra delen av The Strip"
     ],
-    "tip": "Välj flexibel rate hellre än Advance Purchase så långt före resan. Kontrollera totalpris inklusive eventuella avgifter.",
-    "photoCredit": "Ellis Island"
+    "tip": "Incheckning från 15:00, utcheckning senast 11:00. Kontrollera rumskapacitet för tre vuxna, totalpris och eventuella tillägg vid bokning.",
+    "photoCredit": "Illustration – inte hotellfoto"
   },
-  {
+    {
     "id": "williams",
     "date": "2–4 maj",
     "city": "Williams",
