@@ -120,7 +120,7 @@ async function loadBreakingBadMap(){
   const img=$('#bbMapImage');
   if(!img) return;
   try{
-    const files=['assets/bb1.txt','assets/bb2.txt','assets/bb3.txt','assets/bb4.txt'];
+    const files=['assets/bba1.txt','assets/bba2.txt','assets/bba3.txt','assets/bba4.txt','assets/bba5.txt','assets/bba6.txt','assets/bba7.txt','assets/bba8.txt','assets/bb2.txt','assets/bb3.txt','assets/bb4.txt'];
     const parts=await Promise.all(files.map(async function(f){
       const r=await fetch(f,{cache:'force-cache'});
       if(!r.ok) throw new Error('Kunde inte läsa '+f);
@@ -184,7 +184,10 @@ function updateBookingSummary(){
 }
 renderHotels();
 
-$('#stops').innerHTML=itinerary.map((s,i)=>'<article class="stop"><div class="day">Dag '+(i+1)+'<small>'+s.date+'</small></div><div><h3>'+s.title+'</h3><p>'+s.text+'</p></div><div class="meta"><strong>'+s.km+'</strong>natt: '+s.night+'</div></article>').join('');
+$('#stops').innerHTML=itinerary.map((s,i)=>'<article class="stop" data-date="'+s.date+'"><div class="day">Dag '+(i+1)+'<small>'+s.date+'</small></div><div><h3>'+s.title+'</h3><p>'+s.text+'</p></div><div class="meta"><strong>'+s.km+'</strong>natt: '+s.night+'</div></article>').join('');
+const bbFeature=$('.breaking-bad-feature');
+const abqDay=document.querySelector('.stop[data-date="5 maj"]');
+if(bbFeature&&abqDay) abqDay.insertAdjacentElement('afterend',bbFeature);
 
 const defaults=Object.fromEntries(costs.map(c=>[c.key,c.value]));
 const budget=get('usa2027-budget-v2',defaults);
