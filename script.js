@@ -1,17 +1,382 @@
 const hotels=[
-{id:'santa-monica',date:'29–30 apr',city:'Santa Monica',name:'Sea Shore Motel',room:'2 full beds',price:'2 200–2 800 kr',plan:2500,nights:1,dates:['29 apr'],priority:'Tidig bokning'},
-{id:'las-vegas',date:'30 apr–2 maj',city:'Las Vegas',name:'Ellis Island Casino & Hotel',room:'2 Queen',price:'3 000–4 200 kr',plan:3600,nights:2,dates:['30 apr','1 maj'],priority:'Normal'},
-{id:'williams',date:'2–4 maj',city:'Williams',name:'The Lodge on Route 66',room:'2 Queen',price:'3 200–4 200 kr',plan:3600,nights:2,dates:['2 maj','3 maj'],priority:'Boka tidigt'},
-{id:'albuquerque',date:'4–6 maj',city:'Albuquerque',name:'El Vado Motel',room:'Double Queen',price:'3 800–4 800 kr',plan:4200,nights:2,dates:['4 maj','5 maj'],priority:'Boka tidigt'},
-{id:'tucumcari',date:'6–7 maj',city:'Tucumcari',name:'Blue Swallow Motel',room:'Family Suite / rum för 3',price:'1 800–2 300 kr',plan:2000,nights:1,dates:['6 maj'],priority:'BOKA FÖRST'},
-{id:'amarillo',date:'7–8 maj',city:'Amarillo',name:'Big Texan Motel',room:'2 beds',price:'1 300–1 700 kr',plan:1500,nights:1,dates:['7 maj'],priority:'Normal'},
-{id:'okc',date:'8–9 maj',city:'Oklahoma City',name:'Saddleback Inn',room:'2 Queen',price:'1 200–1 600 kr',plan:1400,nights:1,dates:['8 maj'],priority:'Normal'},
-{id:'tulsa',date:'9–10 maj',city:'Tulsa',name:'The Campbell Hotel',room:'Double Queen / större rum',price:'1 400–1 900 kr',plan:1700,nights:1,dates:['9 maj'],priority:'Normal'},
-{id:'springfield-mo',date:'10–11 maj',city:'Springfield MO',name:'Rockwood Motor Court',room:"Fill ’Er Up / Cottage",price:'1 400–1 600 kr',plan:1500,nights:1,dates:['10 maj'],priority:'BOKA FÖRST'},
-{id:'st-louis',date:'11–12 maj',city:'St. Louis',name:'Holiday Inn St Louis SW - Route 66',room:'2 Queen',price:'1 400–1 900 kr',plan:1700,nights:1,dates:['11 maj'],priority:'Normal'},
-{id:'springfield-il',date:'12–13 maj',city:'Springfield IL',name:'Comfort Suites near Route 66',room:'2 Queen + sofa bed',price:'1 500–1 700 kr',plan:1500,nights:1,dates:['12 maj'],priority:'Normal'},
-{id:'chicago',date:'13–14 maj',city:'Chicago',name:'Ohio House Motel',room:'2 full beds',price:'2 500–3 300 kr',plan:2800,nights:1,dates:['13 maj'],priority:'Tidig bokning'},
-{id:'ohare',date:'14–15 maj',city:"O'Hare",name:"Hampton Inn Chicago-O'Hare",room:'2 Queen',price:'1 600–2 000 kr',plan:1700,nights:1,dates:['14 maj'],priority:'Normal'}
+  {
+    "id": "santa-monica",
+    "date": "29–30 apr",
+    "city": "Santa Monica",
+    "name": "Sea Shore Motel",
+    "room": "2 full beds",
+    "price": "2 200–2 800 kr",
+    "plan": 2500,
+    "nights": 1,
+    "dates": [
+      "29 apr"
+    ],
+    "priority": "Tidig bokning",
+    "address": "2637 Main St, Santa Monica, CA 90405",
+    "lat": 34.00181,
+    "lng": -118.48302,
+    "image": "https://assets.simpleviewinc.com/simpleview/image/upload/crm/santamonica/_O5C60710-e6bbd78e5056b36_e6bbe64d-5056-b365-ab6821cfd565722c.jpg",
+    "official": "https://www.seashoremotel.com/",
+    "summary": "Klassiskt familjeägt motell nära stranden och Santa Monica Pier – en passande första natt precis vid Route 66:s västra slut.",
+    "features": [
+      "Ca 5 min promenad till stranden",
+      "Fri parkering",
+      "Nära restauranger på Main Street",
+      "Klassisk motellkänsla"
+    ],
+    "tip": "Bra första natt efter LAX. Välj uttryckligen rum med två sängar för tre vuxna.",
+    "photoCredit": "Visit Santa Monica"
+  },
+  {
+    "id": "las-vegas",
+    "date": "30 apr–2 maj",
+    "city": "Las Vegas",
+    "name": "Ellis Island Casino & Hotel",
+    "room": "2 Queen",
+    "price": "3 000–4 200 kr",
+    "plan": 3600,
+    "nights": 2,
+    "dates": [
+      "30 apr",
+      "1 maj"
+    ],
+    "priority": "Normal",
+    "address": "4250 Koval Ln, Las Vegas, NV 89109",
+    "lat": 36.112447,
+    "lng": -115.16347,
+    "image": "https://cdn.prod.website-files.com/6092d6f09a3178ca121f21b7/6a3451d89de6cac7af4ba3f3_020326_SP_EllisIsland_0839_v1-p-2600.jpeg",
+    "official": "https://www.ellisislandcasino.com/stay",
+    "summary": "Prisvärt hotell strax öster om The Strip med renoverade rum och casino, restauranger och bryggeri alldeles intill.",
+    "features": [
+      "Ca 15 min promenad till Strip",
+      "Double Queen Suite",
+      "Mat och dryck på området",
+      "Praktiskt med bil"
+    ],
+    "tip": "Välj flexibel rate hellre än Advance Purchase så långt före resan. Kontrollera totalpris inklusive eventuella avgifter.",
+    "photoCredit": "Ellis Island"
+  },
+  {
+    "id": "williams",
+    "date": "2–4 maj",
+    "city": "Williams",
+    "name": "The Lodge on Route 66",
+    "room": "2 Queen",
+    "price": "3 200–4 200 kr",
+    "plan": 3600,
+    "nights": 2,
+    "dates": [
+      "2 maj",
+      "3 maj"
+    ],
+    "priority": "Boka tidigt",
+    "address": "200 E Route 66, Williams, AZ 86046",
+    "lat": 35.251379,
+    "lng": -112.185268,
+    "image": "https://thelodgeonroute66.com/wp-content/uploads/2025/08/banner.jpg",
+    "official": "https://thelodgeonroute66.com/",
+    "summary": "Restaurerad familjeägd Route 66-pärla från 1938 mitt i Williams, perfekt bas för Grand Canyon.",
+    "features": [
+      "2 Queen-rum",
+      "Frukost ingår",
+      "Parkera utanför rummet",
+      "2 kvarter från centrum",
+      "Uteplats med eldstäder"
+    ],
+    "tip": "En av resans mest passande motellnätter. Två nätter gör att Grand Canyon-dagen blir lugnare.",
+    "photoCredit": "The Lodge on Route 66"
+  },
+  {
+    "id": "albuquerque",
+    "date": "4–6 maj",
+    "city": "Albuquerque",
+    "name": "El Vado Motel",
+    "room": "Double Queen",
+    "price": "3 800–4 800 kr",
+    "plan": 4200,
+    "nights": 2,
+    "dates": [
+      "4 maj",
+      "5 maj"
+    ],
+    "priority": "Boka tidigt",
+    "address": "2500 Central Ave SW, Albuquerque, NM 87104",
+    "lat": 35.09431,
+    "lng": -106.6772,
+    "image": "https://images.squarespace-cdn.com/content/v1/6509ca3fae0f042cf02d4ac2/0770b8c2-3558-451a-991b-7ce2d4705a44/El%2BVado%2BEvent%2BCenter_High%2BRes-14.jpg",
+    "official": "https://www.elvadoabq.com/",
+    "summary": "Historiskt Route 66-motell från 1937 som kombinerar den gamla motor-court-känslan med moderna rum, restauranger och taproom.",
+    "features": [
+      "Double Queen för upp till 4",
+      "Fri parkering",
+      "Restauranger på området",
+      "Säsongsöppen pool",
+      "Central Avenue / Route 66"
+    ],
+    "tip": "Mycket bra för två nätter eftersom både Old Town och Breaking Bad-rundan blir lättillgängliga.",
+    "photoCredit": "El Vado"
+  },
+  {
+    "id": "tucumcari",
+    "date": "6–7 maj",
+    "city": "Tucumcari",
+    "name": "Blue Swallow Motel",
+    "room": "Family Suite / rum för 3",
+    "price": "1 800–2 300 kr",
+    "plan": 2000,
+    "nights": 1,
+    "dates": [
+      "6 maj"
+    ],
+    "priority": "BOKA FÖRST",
+    "address": "815 E Route 66 Blvd, Tucumcari, NM 88401",
+    "lat": 35.171866,
+    "lng": -103.716421,
+    "image": "https://blueswallowmotel.com/wp-content/uploads/2023/05/home-slide-show-scaled.jpg",
+    "official": "https://blueswallowmotel.com/",
+    "summary": "Ett av Route 66:s mest ikoniska motell. Familjeägt, original motor court från 1939 med restaurerade rum, garage och klassisk neon på kvällen.",
+    "features": [
+      "Family Suite finns",
+      "Berömd neonskyltning",
+      "Historiska garage",
+      "National Register of Historic Places",
+      "Äkta Route 66-upplevelse"
+    ],
+    "tip": "Boka först av alla. Under mars–oktober tas avbokningsavgift ut och incheckning behöver ske senast cirka 21:00.",
+    "photoCredit": "Blue Swallow Motel"
+  },
+  {
+    "id": "amarillo",
+    "date": "7–8 maj",
+    "city": "Amarillo",
+    "name": "Big Texan Motel",
+    "room": "2 beds",
+    "price": "1 300–1 700 kr",
+    "plan": 1500,
+    "nights": 1,
+    "dates": [
+      "7 maj"
+    ],
+    "priority": "Normal",
+    "address": "7701 Interstate 40 Access Rd, Amarillo, TX 79118",
+    "lat": 35.19362,
+    "lng": -101.75427,
+    "image": "https://bigtexan.com/cdn/shop/files/Big-Texan-Airbnb-2-scaled.jpg?v=1752020117&width=2000",
+    "official": "https://bigtexan.com/pages/motels",
+    "summary": "Färgstarkt 54-rumsmotell i old-west-stil precis bredvid Big Texan Steak Ranch – kitschigt på precis rätt roadtrip-sätt.",
+    "features": [
+      "Old West-tema",
+      "Bredvid Steak Ranch",
+      "24 h reception",
+      "Tvättmöjligheter",
+      "Enkel access till I-40"
+    ],
+    "tip": "Inte det mest historiska motellet på rutten, men ett roligt stopp efter Cadillac Ranch och en stark roadtrip-kväll.",
+    "photoCredit": "The Big Texan"
+  },
+  {
+    "id": "okc",
+    "date": "8–9 maj",
+    "city": "Oklahoma City",
+    "name": "Saddleback Inn",
+    "room": "2 Queen",
+    "price": "1 200–1 600 kr",
+    "plan": 1400,
+    "nights": 1,
+    "dates": [
+      "8 maj"
+    ],
+    "priority": "Normal",
+    "address": "4300 SW 3rd St, Oklahoma City, OK 73108",
+    "lat": 35.46224,
+    "lng": -97.59764,
+    "image": "https://media.iceportal.com/46494/photos/72287494_XXL.jpg",
+    "official": "",
+    "summary": "Stor motel-style-anläggning väster om centrala Oklahoma City med enkel bilaccess och gott om plats – vald främst för praktisk övernattning.",
+    "features": [
+      "2 Queen-rum",
+      "Parkering",
+      "Frukost har erbjudits",
+      "Pool",
+      "Nära I-40"
+    ],
+    "tip": "Fastighetens varumärke/status verkar ha ändrats i vissa aktuella register. Kontrollera att hotellet fortfarande drivs under rätt namn innan bokning.",
+    "photoCredit": "ICE Portal"
+  },
+  {
+    "id": "tulsa",
+    "date": "9–10 maj",
+    "city": "Tulsa",
+    "name": "The Campbell Hotel",
+    "room": "Double Queen / större rum",
+    "price": "1 400–1 900 kr",
+    "plan": 1700,
+    "nights": 1,
+    "dates": [
+      "9 maj"
+    ],
+    "priority": "Normal",
+    "address": "2636 E 11th St, Tulsa, OK 74104",
+    "lat": 36.14755,
+    "lng": -95.9521,
+    "image": "https://www.routemagazine.us/assets/stories/miracle-on-11th-street/campbell-hotel-1.jpg",
+    "official": "https://www.thecampbellhotel.com/",
+    "summary": "Boutiquehotell i en historisk byggnad från 1927 direkt på gamla Route 66/11th Street, med individuellt inredda temarum.",
+    "features": [
+      "Historisk Route 66-adress",
+      "26 individuella rum",
+      "Boutique-känsla",
+      "Restaurang/lounge",
+      "Parkering"
+    ],
+    "tip": "Inte ett klassiskt motor court, men ett av de mer karaktärsfulla hotellen på resan. Bekräfta rum med två sängar för tre vuxna.",
+    "photoCredit": "Route Magazine"
+  },
+  {
+    "id": "springfield-mo",
+    "date": "10–11 maj",
+    "city": "Springfield MO",
+    "name": "Rockwood Motor Court",
+    "room": "Fill ’Er Up / Cottage",
+    "price": "1 400–1 600 kr",
+    "plan": 1500,
+    "nights": 1,
+    "dates": [
+      "10 maj"
+    ],
+    "priority": "BOKA FÖRST",
+    "address": "2200 W College St, Springfield, MO 65806",
+    "lat": 37.2088,
+    "lng": -93.3231,
+    "image": "https://rockwoodcourt.com/wp-content/uploads/2025/02/Courtyard-full-MO-LIFE-AD-v2-redo.jpg",
+    "official": "https://rockwoodcourt.com/",
+    "summary": "Route 66-historia på riktigt: ett motor court från 1929, renoverat med vintageinredning och fortfarande byggt kring den klassiska gårdsformen.",
+    "features": [
+      "Sedan 1929",
+      "Renoverat 2019",
+      "Fri parkering och Wi-Fi",
+      "Cottage för upp till 4",
+      "Fill ’Er Up i gammal Shell-station"
+    ],
+    "tip": "Boka tidigt. För er tre är Cottage eller Fill ’Er Up de mest intressanta alternativen och en av resans starkaste motellupplevelser.",
+    "photoCredit": "Rockwood Motor Court"
+  },
+  {
+    "id": "st-louis",
+    "date": "11–12 maj",
+    "city": "St. Louis",
+    "name": "Holiday Inn St Louis SW - Route 66",
+    "room": "2 Queen",
+    "price": "1 400–1 900 kr",
+    "plan": 1700,
+    "nights": 1,
+    "dates": [
+      "11 maj"
+    ],
+    "priority": "Normal",
+    "address": "10709 Watson Rd, St. Louis, MO 63127",
+    "lat": 38.55539,
+    "lng": -90.40874,
+    "image": "https://digital.ihg.com/is/image/ihg/holiday-inn-st.-louis-6320204920-4x3",
+    "official": "https://www.ihg.com/holidayinn/hotels/us/en/st-louis/stlsw/hoteldetail",
+    "summary": "Renoverat Holiday Inn på historiska Route 66 med bra bilaccess mot St. Louis och gott om gratis parkering.",
+    "features": [
+      "Gratis parkering",
+      "Utomhuspool i säsong",
+      "24/7 gym",
+      "Restaurang på området",
+      "Route 66-läge"
+    ],
+    "tip": "Praktiskt snarare än nostalgiskt – bra plats för en bekväm natt före den kortare körningen till Springfield, Illinois.",
+    "photoCredit": "IHG"
+  },
+  {
+    "id": "springfield-il",
+    "date": "12–13 maj",
+    "city": "Springfield IL",
+    "name": "Comfort Suites near Route 66",
+    "room": "2 Queen + sofa bed",
+    "price": "1 500–1 700 kr",
+    "plan": 1500,
+    "nights": 1,
+    "dates": [
+      "12 maj"
+    ],
+    "priority": "Normal",
+    "address": "2620 S Dirksen Pkwy, Springfield, IL 62703",
+    "lat": 39.7687,
+    "lng": -89.6088,
+    "image": "https://images.trvl-media.com/lodging/1000000/30000/25300/25204/46f17a01.jpg?impolicy=resizecrop&ra=fill&rh=575&rw=575",
+    "official": "https://www.choicehotels.com/illinois/springfield/comfort-suites-hotels/il127",
+    "summary": "Rymligt och praktiskt svithotell nära Route 66 – ett bra komfortstopp inför sista etappen mot Chicago.",
+    "features": [
+      "2 Queens + bäddsoffa",
+      "Gratis varm frukost",
+      "Gratis parkering och Wi-Fi",
+      "Inomhuspool",
+      "Kyl och mikro"
+    ],
+    "tip": "Bra val för tre eftersom ni får gott om sov- och bagageutrymme utan att behöva två rum.",
+    "photoCredit": "Comfort Suites"
+  },
+  {
+    "id": "chicago",
+    "date": "13–14 maj",
+    "city": "Chicago",
+    "name": "Ohio House Motel",
+    "room": "Rum med 2 sängar – bekräftas",
+    "price": "2 500–3 300 kr",
+    "plan": 2800,
+    "nights": 1,
+    "dates": [
+      "13 maj"
+    ],
+    "priority": "Tidig bokning",
+    "address": "600 N LaSalle Dr, Chicago, IL 60654",
+    "lat": 41.89273,
+    "lng": -87.63317,
+    "image": "https://irp.cdn-website.com/e2c7fdbd/dms3rep/multi/opt/imgi_88_32_front3--694af8f569db5-1920w.jpg",
+    "official": "https://www.ohiohousemotel.com/",
+    "summary": "Ikoniskt downtown-motell från 1960 mitt i River North – ett ovanligt sätt att behålla motellkänslan ända in i centrala Chicago.",
+    "features": [
+      "River North",
+      "Sedan 1960",
+      "24/7 reception",
+      "Gratis Wi-Fi",
+      "Gångavstånd till mycket i centrum"
+    ],
+    "tip": "Bekräfta rumstyp med två sängar för tre vuxna. Parkeringen är begränsad och kostar extra, så kontrollera aktuell parkeringsavgift vid bokning.",
+    "photoCredit": "Ohio House Motel"
+  },
+  {
+    "id": "ohare",
+    "date": "14–15 maj",
+    "city": "O'Hare",
+    "name": "Hampton Inn Chicago-O'Hare",
+    "room": "2 Queen",
+    "price": "1 600–2 000 kr",
+    "plan": 1700,
+    "nights": 1,
+    "dates": [
+      "14 maj"
+    ],
+    "priority": "Normal",
+    "address": "3939 N Mannheim Rd, Schiller Park, IL 60176",
+    "lat": 41.9495,
+    "lng": -87.8855,
+    "image": "https://res.cloudinary.com/lastminute/image/upload/q_auto/v1759227368/jutrxqc4b2wno4yiimft.jpg",
+    "official": "https://www.hilton.com/en/hotels/chiaphx-hampton-chicago-ohare-international-airport/",
+    "summary": "Sista natten är helt funktionell: nära O'Hare med flygplatstransfer så att hemresedagen blir enkel och stressfri.",
+    "features": [
+      "Gratis 24/7 flygplatsshuttle",
+      "Gratis varm frukost",
+      "Gratis parkering under vistelsen",
+      "Inomhuspool",
+      "Gratis Wi-Fi"
+    ],
+    "tip": "Perfekt sista natt. Planera bilreturen och shuttle-tiden så ni är på ORD i mycket god tid före 19:15-flyget.",
+    "photoCredit": "Hampton by Hilton"
+  }
 ];
 
 const itinerary=[
@@ -104,6 +469,7 @@ function show(id,scroll=true){
       b.scrollIntoView({behavior:scroll?'smooth':'auto',block:'nearest',inline:'center'});
     }else b.removeAttribute('aria-current');
   });
+  if(id==='hotell') setTimeout(initHotelMap,80);
   if(scroll) window.scrollTo({top:0,behavior:'smooth'});
 }
 function navigate(id){
@@ -239,6 +605,42 @@ function updateBookingSummary(){
  if(booked.length){ if(diff<0)card.classList.add('good'); if(diff>0)card.classList.add('bad'); }
 }
 renderHotels();
+
+function hotelMapsUrl(h){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(h.address);}
+function renderHotelDetails(){
+  const target=$('#hotelDetails'); if(!target) return;
+  target.innerHTML=hotels.map((h,i)=>{
+    const cls=h.priority==='BOKA FÖRST'?'priority':(h.priority==='Normal'?'normal':'');
+    const official=h.official?'<a class="hotel-btn primary-hotel" href="'+h.official+'" target="_blank" rel="noopener">Webbplats →</a>':'';
+    const features=h.features.map(f=>'<li>'+f+'</li>').join('');
+    return '<article class="hotel-detail-card">'+
+      '<div class="hotel-photo"><img src="'+h.image+'" alt="'+h.name+' i '+h.city+'" loading="lazy" referrerpolicy="no-referrer"><span class="hotel-photo-credit">Bild: '+h.photoCredit+'</span></div>'+
+      '<div class="hotel-detail-body"><div class="hotel-card-top"><span class="hotel-order">'+String(i+1).padStart(2,'0')+'</span><span class="status '+cls+'">'+h.priority+'</span></div>'+
+      '<small class="hotel-date">'+h.date+' · '+h.city+'</small><h4>'+h.name+'</h4><p class="hotel-summary">'+h.summary+'</p>'+
+      '<div class="hotel-facts"><div><b>Adress</b><span>'+h.address+'</span></div><div><b>Rum för er</b><span>'+h.room+'</span></div><div><b>Planpris</b><span>'+h.price+'</span></div></div>'+
+      '<ul class="hotel-features">'+features+'</ul>'+
+      '<div class="hotel-tip"><b>Vårt tips</b><span>'+h.tip+'</span></div>'+
+      '<div class="hotel-actions">'+official+'<a class="hotel-btn" href="'+hotelMapsUrl(h)+'" target="_blank" rel="noopener">Google Maps →</a></div></div></article>';
+  }).join('');
+}
+renderHotelDetails();
+
+let hotelMapInstance=null;
+function initHotelMap(){
+  const el=$('#hotelMap');
+  if(!el || typeof L==='undefined') return;
+  if(hotelMapInstance){hotelMapInstance.invalidateSize();return;}
+  hotelMapInstance=L.map(el,{scrollWheelZoom:false,zoomControl:true});
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap contributors'}).addTo(hotelMapInstance);
+  const points=[];
+  hotels.forEach((h,i)=>{
+    const p=[h.lat,h.lng]; points.push(p);
+    const marker=L.marker(p).addTo(hotelMapInstance);
+    marker.bindPopup('<div class="hotel-popup"><b>'+String(i+1).padStart(2,'0')+' · '+h.name+'</b><br>'+h.date+' · '+h.city+'<br><small>'+h.address+'</small></div>');
+  });
+  L.polyline(points,{color:'#b86e32',weight:4,opacity:.78,dashArray:'9 7'}).addTo(hotelMapInstance);
+  hotelMapInstance.fitBounds(points,{padding:[28,28]});
+}
 
 $('#stops').innerHTML=itinerary.map((s,i)=>'<article class="stop" data-date="'+s.date+'"><div class="day">Dag '+(i+1)+'<small>'+s.date+'</small></div><div><h3>'+s.title+'</h3><p>'+s.text+'</p></div><div class="meta"><strong>'+s.km+'</strong>natt: '+s.night+'</div></article>').join('');
 const bbFeature=$('.breaking-bad-feature');
