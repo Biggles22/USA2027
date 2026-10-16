@@ -50,6 +50,28 @@ const costs=[
 {key:'eSIM, tvätt & småutgifter',value:1500,note:'Gemensam marginal'}
 ];
 
+
+const preTrip={date:'Före avresa',place:'ESTA + eSIM',hotel:0,food:0,car:0,fuel:0,parking:0,activity:0,misc:1800,note:'ESTA 1 200 kr + eSIM 600 kr'};
+const dailyBudget=[
+{date:'29 apr',place:'Santa Monica',hotel:2500,food:900,car:1050,fuel:50,parking:200,activity:0,misc:50},
+{date:'30 apr',place:'Las Vegas',hotel:1800,food:1400,car:1050,fuel:550,parking:200,activity:100,misc:50},
+{date:'1 maj',place:'Las Vegas',hotel:1800,food:1700,car:1050,fuel:50,parking:300,activity:200,misc:100},
+{date:'2 maj',place:'Williams',hotel:1800,food:1400,car:1050,fuel:500,parking:100,activity:1090,misc:50},
+{date:'3 maj',place:'Williams / Grand Canyon',hotel:1800,food:1400,car:1050,fuel:250,parking:0,activity:2480,misc:50},
+{date:'4 maj',place:'Albuquerque',hotel:2100,food:1400,car:1050,fuel:700,parking:100,activity:100,misc:100},
+{date:'5 maj',place:'Albuquerque',hotel:2100,food:1400,car:1050,fuel:50,parking:100,activity:100,misc:100},
+{date:'6 maj',place:'Tucumcari',hotel:2000,food:1400,car:1050,fuel:350,parking:50,activity:100,misc:50},
+{date:'7 maj',place:'Amarillo',hotel:1500,food:1400,car:1050,fuel:250,parking:50,activity:100,misc:50},
+{date:'8 maj',place:'Oklahoma City',hotel:1400,food:1400,car:1050,fuel:550,parking:100,activity:400,misc:50},
+{date:'9 maj',place:'Tulsa',hotel:1700,food:1400,car:1050,fuel:250,parking:50,activity:100,misc:50},
+{date:'10 maj',place:'Springfield MO',hotel:1500,food:1400,car:1050,fuel:350,parking:100,activity:50,misc:50},
+{date:'11 maj',place:'St. Louis',hotel:1700,food:1400,car:1050,fuel:450,parking:150,activity:500,misc:50},
+{date:'12 maj',place:'Springfield IL',hotel:1500,food:1400,car:1050,fuel:200,parking:200,activity:0,misc:50},
+{date:'13 maj',place:'Chicago',hotel:2800,food:1600,car:1050,fuel:400,parking:500,activity:50,misc:50},
+{date:'14 maj',place:"Chicago / O'Hare",hotel:1700,food:2000,car:1050,fuel:50,parking:800,activity:50,misc:0},
+{date:'15 maj',place:"O'Hare / hemresa",hotel:0,food:1000,car:1200,fuel:0,parking:0,activity:0,misc:0}
+];
+
 const tasks=[
 {title:'Boka Blue Swallow Motel · 6 maj',note:'Högsta prioritet. Få rum och ett av resans viktigaste klassiska Route 66-motell.'},
 {title:"Boka Rockwood Motor Court · 10 maj",note:"Försök få Fill ’Er Up eller Rockwood Cottage för tre personer."},
@@ -82,6 +104,25 @@ const budget=get('usa2027-budget-v2',defaults);
 $('#budget').innerHTML=costs.map((c,i)=>'<label for="c'+i+'">'+c.key+'<small>'+c.note+'</small><input id="c'+i+'" type="number" min="0" step="50" data-cost="'+c.key+'" value="'+(Number(budget[c.key]??c.value))+'"></label>').join('');
 function sum(){let t=0;$$('[data-cost]').forEach(e=>{const n=Math.max(0,Number(e.value)||0);budget[e.dataset.cost]=n;t+=n});const r=Math.round(t*1.10);$('#total').textContent=new Intl.NumberFormat('sv-SE').format(t)+' kr';$('#recommended').textContent=new Intl.NumberFormat('sv-SE').format(r)+' kr';$('#perPerson').textContent=new Intl.NumberFormat('sv-SE').format(Math.round(r/3))+' kr';save('usa2027-budget-v2',budget)}
 $$('[data-cost]').forEach(e=>e.oninput=sum);sum();
+
+
+const money=n=>new Intl.NumberFormat('sv-SE').format(n)+' kr';
+let running=preTrip.misc;
+const preRow='<tr class="pretrip"><td>'+preTrip.date+'</td><td>'+preTrip.place+'</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>–</td><td>'+money(preTrip.misc)+'</td><td class="total-day">'+money(preTrip.misc)+'</td><td class="running">'+money(running)+'</td></tr>';
+const dayRows=dailyBudget.map(d=>{
+  const total=d.hotel+d.food+d.car+d.fuel+d.parking+d.activity+d.misc;
+  running+=total;
+  return '<tr><td>'+d.date+'</td><td>'+d.place+'</td><td>'+money(d.hotel)+'</td><td>'+money(d.food)+'</td><td>'+money(d.car)+'</td><td>'+money(d.fuel)+'</td><td>'+money(d.parking)+'</td><td>'+money(d.activity)+'</td><td>'+money(d.misc)+'</td><td class="total-day">'+money(total)+'</td><td class="running">'+money(running)+'</td></tr>';
+}).join('');
+$('#dailyBudget').innerHTML=preRow+dayRows;
+const tripDaysTotal=dailyBudget.reduce((s,d)=>s+d.hotel+d.food+d.car+d.fuel+d.parking+d.activity+d.misc,0);
+const dayBase=tripDaysTotal+preTrip.misc;
+const dayPlan=Math.round(dayBase*1.10);
+$('#preTripTotal').textContent=money(preTrip.misc);
+$('#tripDaysTotal').textContent=money(tripDaysTotal);
+$('#dailyBaseTotal').textContent=money(dayBase);
+$('#dailyPlanTotal').textContent=money(dayPlan);
+$('#dailyPerPerson').textContent=money(Math.round(dayPlan/3))+'/person';
 
 const checked=get('usa2027-checks-v2',{});
 $('#checks').innerHTML=tasks.map((t,i)=>'<label><input type="checkbox" data-check="'+i+'" '+(checked[i]?'checked':'')+'><span><b>'+t.title+'</b><small>'+t.note+'</small></span></label>').join('');
