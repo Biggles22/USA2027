@@ -24,3 +24,19 @@ textarea{display:block;width:100%;border:1px solid #ddd;border-radius:6px;paddin
 footer{background:#14263a;color:white;padding:35px 25px;display:flex;gap:20px;justify-content:space-between;align-items:center;flex-wrap:wrap}footer strong{font:600 24px Oswald}footer span,footer small{font-size:11px;letter-spacing:1px;color:#b9c4ce}
 @media(max-width:850px){nav{justify-content:flex-start}.cards,.cards.two,.budget{grid-template-columns:1fr}.hero{min-height:470px}.intro{padding-top:35px}.top small{font-size:9px}.sum{align-items:flex-start;flex-direction:column}.stop{grid-template-columns:58px 1fr}.stop .meta{grid-column:2;text-align:left}.per-person{grid-template-columns:1fr}.per-person strong{justify-self:start}}
 @media(max-width:520px){.top{align-items:flex-start;flex-direction:column}.stats{gap:25px}.intro h1{font-size:52px}.trip-summary i{display:none}.trip-summary{justify-content:flex-start}.trip-summary div{min-width:58px}}
+.daily-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.daily-summary article{background:#fff;border:1px solid #e7e1d8;border-radius:8px;padding:18px;display:flex;flex-direction:column;gap:5px}
+.daily-summary article small{font-size:10px;letter-spacing:1.3px;color:#7a8792;font-weight:700}
+.daily-summary article strong{font:600 28px Oswald;color:#20374d}
+.daily-summary article span{font-size:12px;color:#76828b}
+.daily-summary article.highlight{background:#203e59;color:#fff;border-color:#203e59}
+.daily-summary article.highlight strong{color:#e9b46c}.daily-summary article.highlight small,.daily-summary article.highlight span{color:#d5dde4}
+.daily-table table{min-width:1280px}
+.daily-table th:nth-child(n+3),.daily-table td:nth-child(n+3){text-align:right}
+.daily-table td:first-child{font-weight:700;white-space:nowrap}
+.daily-table td:nth-child(2){min-width:170px;text-align:left}
+.daily-table td.total-day{font-weight:800;color:#9a642f;background:#fbf4ea}
+.daily-table td.running{font-weight:800;color:#1e3449}
+.daily-table tr.pretrip td{background:#f0ece4}
+@media(max-width:850px){.daily-summary{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.daily-summary{grid-template-columns:1fr}}
