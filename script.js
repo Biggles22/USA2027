@@ -118,7 +118,7 @@ setInterval(updateCountdown,1000);
 
 async function loadBreakingBadMap(){
   const img=$('#bbMapImage');
-  if(!img) return;
+  if(!img || img.getAttribute('src')) return;
   try{
     const files=['assets/bba1.txt','assets/bba2.txt','assets/bba3.txt','assets/bba4.txt','assets/bba5.txt','assets/bba6.txt','assets/bba7.txt','assets/bba8.txt','assets/bb2.txt','assets/bb3.txt','assets/bb4.txt'];
     const parts=await Promise.all(files.map(async function(f){
