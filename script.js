@@ -91,7 +91,31 @@ const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
 const get=(k,f)=>{try{return JSON.parse(localStorage.getItem(k))??f}catch{return f}},save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
 const money=n=>new Intl.NumberFormat('sv-SE').format(Math.round(n))+' kr';
 function show(id){$$('.page').forEach(p=>p.classList.toggle('active',p.id===id));$$('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo({top:0,behavior:'smooth'})}
-$$('[data-page]').forEach(b=>b.onclick=()=>show(b.dataset.page));$$('[data-jump]').forEach(b=>b.onclick=()=>show(b.dataset.jump));
+$('[data-page]').forEach(b=>b.onclick=()=>show(b.dataset.page));$('[data-jump]').forEach(b=>b.onclick=()=>show(b.dataset.jump));
+
+function updateCountdown(){
+  const target=new Date('2027-04-29T09:55:00+02:00').getTime();
+  const now=Date.now();
+  const diff=target-now;
+  const box=$('#countdown');
+  if(!box) return;
+  if(diff<=0){
+    box.className='countdown departed';
+    box.innerHTML='✈ Nu börjar Route 66-resan!';
+    return;
+  }
+  const days=Math.floor(diff/86400000);
+  const hours=Math.floor((diff%86400000)/3600000);
+  const minutes=Math.floor((diff%3600000)/60000);
+  const seconds=Math.floor((diff%60000)/1000);
+  $('#cdDays').textContent=days;
+  $('#cdHours').textContent=String(hours).padStart(2,'0');
+  $('#cdMinutes').textContent=String(minutes).padStart(2,'0');
+  $('#cdSeconds').textContent=String(seconds).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown,1000);
+
 
 const hotelBookings=get('usa2027-hotel-bookings',{});
 function varianceHtml(plan,actual){
