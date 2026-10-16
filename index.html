@@ -14,7 +14,7 @@
   <title>USA2027 | Route 66</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="style.css?v=20261016r">
+  <link rel="stylesheet" href="style.css?v=20261016s">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 </head>
 <body>
@@ -245,6 +245,19 @@
     <h2>Dag för dag.</h2>
     <p>Detaljerad körplan med ungefärliga avstånd, stopp och övernattningar. Körsträckorna varierar beroende på hur mycket gammal Route 66 ni väljer framför Interstate.</p>
   </div>
+  <section class="route-comparison-map" aria-labelledby="comparisonMapTitle">
+    <div class="route-comparison-copy">
+      <small>RUTTJÄMFÖRELSE</small>
+      <h3 id="comparisonMapTitle">Original Route 66 och vår planerade resa</h3>
+      <p>Se var resan följer den klassiska vägen och var den gör avstickare till Las Vegas och Grand Canyon.</p>
+    </div>
+    <a href="assets/route66-planerad-resa.png" target="_blank" rel="noopener" class="route-map-link" aria-label="Öppna jämförelsekartan i full storlek">
+      <picture>
+        <source srcset="assets/route66-planerad-resa.webp" type="image/webp">
+        <img src="assets/route66-planerad-resa.png" alt="Karta som jämför original Route 66 med den planerade resan via Las Vegas och Grand Canyon" class="route-map-image" width="1448" height="1086" loading="lazy">
+      </picture>
+    </a>
+  </section>
   <div class="route-feature breaking-bad-feature">
     <div class="route-feature-copy">
       <small>5 MAJ · ALBUQUERQUE</small>
@@ -341,6 +354,6 @@
   <small>29 APRIL – 16 MAJ 2027</small>
 </footer>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=20261016r"></script>
+<script src="script.js?v=20261016s"></script>
 </body>
 </html>

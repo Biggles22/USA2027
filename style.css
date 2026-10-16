@@ -185,12 +185,15 @@ footer{background:#14263a;color:white;padding:35px 25px;display:flex;gap:20px;ju
   transition: transform .18s ease;
 }
 
+.route-comparison-map{margin:0 0 24px;background:#fff;border:1px solid #e7e1d8;border-radius:10px;padding:24px;box-shadow:0 5px 18px rgba(20,38,58,.04)}
+.route-comparison-copy{margin-bottom:16px}.route-comparison-copy small{font-size:10px;letter-spacing:1.6px;font-weight:800;color:#c58b46}.route-comparison-copy h3{font:600 clamp(27px,4vw,38px) Oswald;text-transform:uppercase;margin:6px 0}.route-comparison-copy p{max-width:760px;margin:0;color:#687582;line-height:1.6}
+
 .overview-status{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0 0 24px}.overview-status article{background:#fff;border:1px solid #e7e1d8;border-radius:8px;padding:17px;display:flex;flex-direction:column;gap:5px}.overview-status small{font-size:9px;letter-spacing:1.2px;color:#78848e;font-weight:700}.overview-status strong{font:600 25px Oswald;color:#20374d}.overview-status button{border:0;background:none;color:#9b612d;text-align:left;padding:4px 0;font-size:11px;font-weight:700;cursor:pointer}
 @media(max-width:850px){.overview-status{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.overview-status{grid-template-columns:1fr}}
 
 @media (max-width: 800px){
-  .route-overview-map{
+  .route-overview-map,.route-comparison-map{
     padding:18px;
     margin:22px 0 28px;
   }
