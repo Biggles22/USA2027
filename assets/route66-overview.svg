@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+<title id="title">Översiktskarta – Los Angeles till Chicago</title>
+<desc id="desc">Route 66 road trip via Las Vegas, Grand Canyon, Albuquerque, Tucumcari, Amarillo, Oklahoma City, Tulsa, Springfield Missouri, St. Louis och Springfield Illinois till Chicago.</desc>
+<defs>
+  <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#f7e7bf"/><stop offset=".52" stop-color="#f0d8a8"/><stop offset="1" stop-color="#e9c88e"/>
+  </linearGradient>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#79b8d4"/><stop offset="1" stop-color="#d9d4a8"/>
+  </linearGradient>
+  <pattern id="grain" width="19" height="19" patternUnits="userSpaceOnUse">
+    <circle cx="3" cy="5" r=".7" fill="#72552d" opacity=".08"/><circle cx="14" cy="12" r=".6" fill="#72552d" opacity=".07"/>
+  </pattern>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+    <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#23384b" flood-opacity=".22"/>
+  </filter>
+  <style>
+    .state{fill:#e8d39b;stroke:#fff8e8;stroke-width:2.4}.state2{fill:#d8c985}
+    .sname{font:600 18px Arial,sans-serif;letter-spacing:3px;fill:#41594f;opacity:.9}
+    .label{font:700 15px Arial,sans-serif;fill:#142b42}.small{font:600 12px Arial,sans-serif;fill:#54616a}
+    .pin{fill:#b91d1d;stroke:#fff7e6;stroke-width:4}.route{fill:none;stroke:#fff6df;stroke-width:14;stroke-linecap:round;stroke-linejoin:round}
+    .route2{fill:none;stroke:#e92820;stroke-width:8;stroke-linecap:round;stroke-linejoin:round}
+  </style>
+</defs>
+
+<rect width="1200" height="675" fill="url(#sky)"/>
+<rect y="125" width="1200" height="550" fill="url(#paper)"/>
+<rect width="1200" height="675" fill="url(#grain)"/>
+
+<!-- header -->
+<g filter="url(#shadow)">
+  <rect x="65" y="22" width="930" height="105" rx="10" fill="#fbefcf" stroke="#17334a" stroke-width="5"/>
+  <rect x="75" y="32" width="910" height="85" rx="6" fill="none" stroke="#ba8b4b" stroke-width="2"/>
+</g>
+<text x="530" y="67" text-anchor="middle" font-family="Georgia,serif" font-size="35" font-weight="700" fill="#15334d">Översiktskarta – <tspan fill="#9e241b">Los Angeles till Chicago</tspan></text>
+<text x="530" y="101" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" font-weight="700" fill="#18354d">ROUTE 66 ROAD TRIP · 29 APRIL–16 MAJ 2027</text>
+
+<!-- Route 66 shield -->
+<g transform="translate(1025 17)" filter="url(#shadow)">
+  <path d="M10 10 Q75 -2 140 10 L134 45 Q130 91 75 121 Q20 91 16 45Z" fill="#f8efd5" stroke="#15334d" stroke-width="6"/>
+  <path d="M19 18 Q75 8 131 18 L126 43 H24Z" fill="#b32620"/>
+  <text x="75" y="39" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="800" fill="#fff">ROUTE</text>
+  <text x="75" y="94" text-anchor="middle" font-family="Arial,sans-serif" font-size="52" font-weight="900" fill="#15334d">66</text>
+</g>
+
+<!-- schematic state map -->
+<g transform="translate(35 145)">
+  <path class="state state2" d="M15 90 L102 55 126 100 106 154 136 221 112 310 80 363 43 330 22 245 0 175Z"/>
+  <path class="state" d="M102 55 L190 69 179 176 136 221 106 154 126 100Z"/>
+  <path class="state" d="M136 221 L179 176 298 192 291 304 112 310Z"/>
+  <path class="state state2" d="M298 192 L431 188 431 306 291 304Z"/>
+  <path class="state" d="M431 188 L539 190 565 252 538 282 510 397 461 365 431 306Z"/>
+  <path class="state state2" d="M539 190 L700 187 704 256 565 252Z"/>
+  <path class="state" d="M704 187 L813 163 858 205 832 268 704 256Z"/>
+  <path class="state state2" d="M858 115 L916 110 920 223 858 205 813 163 830 135Z"/>
+  <path class="state" d="M916 75 L967 69 980 180 920 223 916 110Z"/>
+  <path class="state state2" d="M967 69 L1028 70 1045 161 980 180Z"/>
+  <path class="state" d="M1028 38 L1078 38 1074 142 1045 161 1028 70Z"/>
+
+  <text class="sname" x="42" y="200" transform="rotate(-71 42 200)">CALIFORNIA</text>
+  <text class="sname" x="119" y="116">NEVADA</text>
+  <text class="sname" x="187" y="260">ARIZONA</text>
+  <text class="sname" x="313" y="250">NEW MEXICO</text>
+  <text class="sname" x="455" y="332">TEXAS</text>
+  <text class="sname" x="581" y="232">OKLAHOMA</text>
+  <text class="sname" x="746" y="205">MISSOURI</text>
+  <text class="sname" x="1004" y="116" transform="rotate(-78 1004 116)">ILLINOIS</text>
+
+  <!-- desert / road decoration -->
+  <path d="M0 420 Q150 355 300 407 T590 395 T895 363 T1080 308 V455 H0Z" fill="#c88c55" opacity=".24"/>
+  <circle cx="315" cy="346" r="34" fill="#cf7d41" opacity=".16"/>
+  <path d="M255 395 l15-42 15 42m-15-29h-15m15 7h20" stroke="#315542" stroke-width="5" fill="none"/>
+  <path d="M492 380 v-54m0 18h-15m15 8h17m-17-8c0-15 16-16 16-2m-16-5c0-15-15-16-15-2" stroke="#315542" stroke-width="5" fill="none"/>
+  <path d="M710 354 v-51m-18 51h36m-31-38h26m-22-10h18" stroke="#31485a" stroke-width="4"/>
+  <path d="M815 297 q14-45 28 0m-38 0h49m-42 0v25m35-25v25" stroke="#34586a" stroke-width="4" fill="none"/>
+
+  <!-- route -->
+  <path class="route" d="M82 309 C125 313 153 295 186 245 C214 263 242 294 284 291 C350 307 392 318 451 316 C493 316 514 313 542 314 C596 314 626 314 672 302 C710 293 733 285 760 267 C790 247 806 237 834 225 C873 208 894 190 920 170 C952 147 966 131 985 113 C1010 91 1026 73 1044 56"/>
+  <path class="route2" d="M82 309 C125 313 153 295 186 245 C214 263 242 294 284 291 C350 307 392 318 451 316 C493 316 514 313 542 314 C596 314 626 314 672 302 C710 293 733 285 760 267 C790 247 806 237 834 225 C873 208 894 190 920 170 C952 147 966 131 985 113 C1010 91 1026 73 1044 56"/>
+
+  <!-- stop pins -->
+  <g>
+    <circle class="pin" cx="82" cy="309" r="9"/><circle class="pin" cx="186" cy="245" r="9"/>
+    <circle class="pin" cx="284" cy="291" r="9"/><circle class="pin" cx="451" cy="316" r="9"/>
+    <circle class="pin" cx="542" cy="314" r="9"/><circle class="pin" cx="626" cy="314" r="9"/>
+    <circle class="pin" cx="760" cy="267" r="9"/><circle class="pin" cx="806" cy="237" r="9"/>
+    <circle class="pin" cx="834" cy="225" r="9"/><circle class="pin" cx="920" cy="170" r="9"/>
+    <circle class="pin" cx="985" cy="113" r="9"/><circle class="pin" cx="1044" cy="56" r="9"/>
+  </g>
+
+  <!-- labels -->
+  <g filter="url(#shadow)">
+    <g transform="translate(20 330)"><rect width="148" height="44" rx="7" fill="#fff8e8"/><text class="label" x="74" y="18" text-anchor="middle">Santa Monica</text><text class="small" x="74" y="35" text-anchor="middle">Los Angeles</text></g>
+    <g transform="translate(139 191)"><rect width="94" height="31" rx="7" fill="#fff8e8"/><text class="label" x="47" y="21" text-anchor="middle">Las Vegas</text></g>
+    <g transform="translate(232 318)"><rect width="112" height="43" rx="7" fill="#fff8e8"/><text class="label" x="56" y="18" text-anchor="middle">Grand Canyon</text><text class="small" x="56" y="35" text-anchor="middle">Williams</text></g>
+    <g transform="translate(396 265)"><rect width="110" height="31" rx="7" fill="#fff8e8"/><text class="label" x="55" y="21" text-anchor="middle">Albuquerque</text></g>
+    <g transform="translate(500 335)"><rect width="84" height="31" rx="7" fill="#fff8e8"/><text class="label" x="42" y="21" text-anchor="middle">Tucumcari</text></g>
+    <g transform="translate(589 335)"><rect width="76" height="31" rx="7" fill="#fff8e8"/><text class="label" x="38" y="21" text-anchor="middle">Amarillo</text></g>
+    <g transform="translate(710 286)"><rect width="107" height="31" rx="7" fill="#fff8e8"/><text class="label" x="53.5" y="21" text-anchor="middle">Oklahoma City</text></g>
+    <g transform="translate(779 191)"><rect width="58" height="31" rx="7" fill="#fff8e8"/><text class="label" x="29" y="21" text-anchor="middle">Tulsa</text></g>
+    <g transform="translate(795 241)"><rect width="125" height="31" rx="7" fill="#fff8e8"/><text class="label" x="62.5" y="21" text-anchor="middle">Springfield MO</text></g>
+    <g transform="translate(885 121)"><rect width="78" height="31" rx="7" fill="#fff8e8"/><text class="label" x="39" y="21" text-anchor="middle">St. Louis</text></g>
+    <g transform="translate(939 73)"><rect width="108" height="31" rx="7" fill="#fff8e8"/><text class="label" x="54" y="21" text-anchor="middle">Springfield IL</text></g>
+    <g transform="translate(1014 8)"><rect width="76" height="31" rx="7" fill="#fff8e8"/><text class="label" x="38" y="21" text-anchor="middle">Chicago</text></g>
+  </g>
+</g>
+
+<!-- bottom badge -->
+<g transform="translate(420 603)" filter="url(#shadow)">
+  <rect width="360" height="49" rx="8" fill="#f8e6b8" stroke="#17334a" stroke-width="3"/>
+  <text x="180" y="33" text-anchor="middle" font-family="Georgia,serif" font-size="24" font-weight="700" fill="#8e2b20">←  ca 4 600 km  →</text>
+</g>
+<text x="1100" y="638" text-anchor="end" font-family="Arial,sans-serif" font-size="12" font-weight="700" fill="#42545e">LOS ANGELES → CHICAGO · USA2027</text>
+</svg>
