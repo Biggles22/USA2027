@@ -140,26 +140,6 @@ async function loadBreakingBadMap(){
 }
 loadBreakingBadMap();
 
-
-
-function openRouteOverviewMap(e){
-  if(e) e.preventDefault();
-  const source=$('#routeOverviewImage');
-  const modal=$('#bbModalImage');
-  const box=$('#bbLightbox');
-  if(!source || !source.src || !modal || !box) return;
-  modal.src=source.src;
-  modal.alt='Översiktskarta över Route 66-resan från Los Angeles till Chicago';
-  box.classList.add('open');
-  box.setAttribute('aria-hidden','false');
-  document.body.classList.add('no-scroll');
-}
-const routeOverviewOpen=$('#routeOverviewOpen');
-const routeOverviewButton=$('#routeOverviewButton');
-if(routeOverviewOpen) routeOverviewOpen.addEventListener('click',openRouteOverviewMap);
-if(routeOverviewButton) routeOverviewButton.addEventListener('click',openRouteOverviewMap);
-
-
 function openBreakingBadLightbox(e){
   if(e) e.preventDefault();
   const source=$('#bbMapImage');
