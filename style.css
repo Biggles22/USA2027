@@ -54,3 +54,12 @@ footer{background:#14263a;color:white;padding:35px 25px;display:flex;gap:20px;ju
 .daily-table td.actual-empty{color:#9aa2a9}
 @media(max-width:850px){.booking-summary{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.booking-summary{grid-template-columns:1fr}}
+
+.flight-timeline{margin-top:24px;background:#172a3e;color:#fff;border-radius:8px;padding:18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.flight-timeline div{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);padding:12px 14px;border-radius:6px;min-width:135px}
+.flight-timeline div small{display:block;font-size:10px;letter-spacing:1.2px;color:#e8b36e;font-weight:700;margin-bottom:4px}
+.flight-timeline div strong{display:block;font:600 19px Oswald}
+.flight-timeline div span{display:block;font-size:11px;color:#c8d0d7;margin-top:3px}
+.flight-timeline i{font-style:normal;color:#e8b36e}
+.flight-timeline .break{flex-basis:100%;height:0;padding:0;border:0;background:none}
+@media(max-width:700px){.flight-timeline{align-items:stretch}.flight-timeline div{flex:1 1 140px}.flight-timeline i{display:none}.flight-timeline .break{display:block;flex-basis:100%}}
