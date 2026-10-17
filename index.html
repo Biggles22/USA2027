@@ -55,6 +55,8 @@
   <button type="button" id="tab-bil" role="tab" aria-controls="bil" aria-selected="false" tabindex="-1" data-page="bil">🚙 Bil</button>
   <button type="button" id="tab-hotell" role="tab" aria-controls="hotell" aria-selected="false" tabindex="-1" data-page="hotell">🛏 Boende</button>
   <button type="button" id="tab-rutt" role="tab" aria-controls="rutt" aria-selected="false" tabindex="-1" data-page="rutt">🛣 Dag för dag</button>
+  <button type="button" id="tab-mat" role="tab" aria-controls="mat" aria-selected="false" tabindex="-1" data-page="mat">🍳 Matstopp</button>
+
   <button type="button" id="tab-kostnader" role="tab" aria-controls="kostnader" aria-selected="false" tabindex="-1" data-page="kostnader">💰 Kostnader</button>
   <button type="button" id="tab-dagbudget" role="tab" aria-controls="dagbudget" aria-selected="false" tabindex="-1" data-page="dagbudget">📆 Dagbudget</button>
   <button type="button" id="tab-checklista" role="tab" aria-controls="checklista" aria-selected="false" tabindex="-1" data-page="checklista">✓ Checklista</button>
@@ -277,6 +279,8 @@
   <div id="stops" class="stops"></div>
 </section>
 
+
+<section id="mat" class="page" role="tabpanel" aria-labelledby="tab-mat" hidden><div class="heading"><small>MAT LÄNGS ROUTE 66</small><h2>Frukost & lunch</h2><p>Förslag på klassiska diners längs vår väg från Los Angeles till Chicago.</p></div><div class="foodfilters"><button class="primary" data-meal="alla">Alla</button><button data-meal="frukost">Frukost</button><button data-meal="lunch">Lunch</button></div><div id="foodList" class="stops"></div><div class="note">Förslag, inte bokningar. Kontrollera öppettider och resdagar inför april 2027.</div></section>
 <section id="kostnader" class="page" role="tabpanel" aria-labelledby="tab-kostnader" hidden>
   <div class="heading">
     <small>05 / RESEKASSA</small>
