@@ -301,7 +301,19 @@
     <h2>Hela resebudgeten.</h2>
     <p>Förifylld kalkyl för tre personer. Du kan ändra beloppen — de sparas lokalt i din webbläsare.</p>
   </div>
-  <div id="budget" class="budget"></div>
+  <section class="note" aria-label="Bensinkalkylator">
+  <h3>Bensinkalkylator – fullstor SUV</h3>
+  <p>Justera antagandena för vår Route 66-resa. Priset i kronor per liter är ett planeringsantagande, inte en prognos för 2027.</p>
+  <div class="cards two">
+    <label>Körsträcka (km)<input id="fuelKm" type="number" min="0" step="50" value="4500"></label>
+    <label>Förbrukning (liter/100 km)<input id="fuelConsumption" type="number" min="0" step="0.5" value="13"></label>
+    <label>Bensinpris (kr/liter)<input id="fuelPrice" type="number" min="0" step="0.5" value="12"></label>
+    <div><p><strong>Beräknad åtgång:</strong> <span id="fuelLiters"></span></p><p><strong>Beräknad kostnad:</strong> <span id="fuelEstimate"></span></p><p id="fuelDifference"></p></div>
+  </div>
+  <button type="button" id="fuelApply" class="primary">Använd beräkningen i resebudgeten</button>
+  <p class="muted">Standardbudgeten är 8 000 kr. Om du använder knappen uppdateras även Dagbudget och totalsummorna.</p>
+</section>
+<div id="budget" class="budget"></div>
   <div class="sum"><span>Beräknad grundbudget</span><strong id="total">0 kr</strong></div>
   <div class="sum recommended"><span>Rekommenderad budget inkl. ca 10 % reserv</span><strong id="recommended">0 kr</strong></div>
   <div class="per-person"><span>Per person inkl. reserv</span><strong id="perPerson">0 kr</strong><small>Flygbiljetter tillkommer.</small></div>
@@ -372,6 +384,6 @@
   <small>29 APRIL – 16 MAJ 2027</small>
 </footer>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="script.js?v=20261020-alamo-budget"></script>
+<script src="script.js?v=20261020-fuel8000"></script>
 </body>
 </html>
