@@ -403,7 +403,7 @@ const costs=[
 {key:'Boende',value:29700,note:'16 nätter, 1 rum för 3 där det fungerar'},
 {key:'Hyrbil',value:17896.98,note:'Alamo offert: fullstor SUV, FAD, LAX 29 apr 17:30 → ORD 15 maj 12:00; ej bokad'},
 {key:'Hyrbilsförsäkring',value:0,note:'Separat tillägg 0 kr: skydd enligt Alamos FAD-offert ingår; kontrollera självrisk och villkor'},
-{key:'Bensin',value:5000,note:'Cirka 4 300–4 600 km'},
+{key:'Bensin',value:8000,note:'Fullstor SUV, cirka 4 300–4 600 km; justera med bensinkalkylatorn'},
 {key:'Mat & dryck',value:24000,note:'3 personer × 17 dagar'},
 {key:'Parkering & vägtullar',value:3000,note:'LA, Vegas, Chicago och mindre avgifter'},
 {key:'Nationalparkspass',value:2480,note:'America the Beautiful non-resident pass'},
@@ -462,6 +462,7 @@ const budget=get('usa2027-budget-v2',defaults);
 if(Number(budget['Hyrbil'])===15000) budget['Hyrbil']=17896.98;
 if(Number(budget['Hyrbilsförsäkring'])===3000) budget['Hyrbilsförsäkring']=0;
 if(Number(budget['Hoover Dam'])===990) budget['Hoover Dam']=0;
+if(Number(budget['Bensin'])===5000) budget['Bensin']=8000;
 save('usa2027-budget-v2',budget);
 const pageIds=[...$$('[data-page]')].map(b=>b.dataset.page);
 function show(id,scroll=true){
@@ -707,7 +708,28 @@ function sum(){
   renderHotels();
   renderDailyBudget();
 }
-$$('[data-cost]').forEach(e=>e.oninput=sum);
+$('[data-cost]').forEach(e=>e.oninput=sum);
+function updateFuelCalculator(){
+ const km=Math.max(0,Number($('#fuelKm').value)||0);
+ const litersPer100=Math.max(0,Number($('#fuelConsumption').value)||0);
+ const sekPerLiter=Math.max(0,Number($('#fuelPrice').value)||0);
+ const liters=km*litersPer100/100;
+ const total=liters*sekPerLiter;
+ $('#fuelLiters').textContent=liters.toLocaleString('sv-SE',{maximumFractionDigits:0})+' liter';
+ $('#fuelEstimate').textContent=money(total);
+ $('#fuelDifference').textContent='Skillnad mot budget: '+money(total-Number(budget['Bensin']||0));
+ return total;
+}
+['fuelKm','fuelConsumption','fuelPrice'].forEach(id=>$('#'+id).addEventListener('input',updateFuelCalculator));
+$('#fuelApply').addEventListener('click',()=>{
+ const total=Math.round(updateFuelCalculator());
+ budget['Bensin']=total;
+ const input=$('[data-cost]').find(e=>e.dataset.cost==='Bensin');
+ if(input)input.value=total;
+ save('usa2027-budget-v2',budget);
+ renderHotels();renderDailyBudget();updateFuelCalculator();
+});
+updateFuelCalculator();
 
 
 function bookedHotelShare(date){
