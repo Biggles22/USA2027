@@ -401,13 +401,13 @@ const itinerary=[
 
 const costs=[
 {key:'Boende',value:29700,note:'16 nätter, 1 rum för 3 där det fungerar'},
-{key:'Hyrbil',value:15000,note:'Midsize SUV LAX → ORD'},
-{key:'Hyrbilsförsäkring',value:3000,note:'Marginal för CDW/LDW, zero excess m.m.'},
+{key:'Hyrbil',value:17896.98,note:'Alamo offert: fullstor SUV, FAD, LAX 29 apr 17:30 → ORD 15 maj 12:00; ej bokad'},
+{key:'Hyrbilsförsäkring',value:0,note:'Separat tillägg 0 kr: skydd enligt Alamos FAD-offert ingår; kontrollera självrisk och villkor'},
 {key:'Bensin',value:5000,note:'Cirka 4 300–4 600 km'},
 {key:'Mat & dryck',value:24000,note:'3 personer × 17 dagar'},
 {key:'Parkering & vägtullar',value:3000,note:'LA, Vegas, Chicago och mindre avgifter'},
 {key:'Nationalparkspass',value:2480,note:'America the Beautiful non-resident pass'},
-{key:'Hoover Dam',value:990,note:'Guidad tur + parkering för 3'},
+{key:'Hoover Dam',value:0,note:'Utgår ur nuvarande körplan 2 maj; ändra vid separat besök'},
 {key:'Gateway Arch',value:450,note:'Tram ride för 3'},
 {key:'Route 66 Museum',value:300,note:'Clinton, Oklahoma'},
 {key:'Övriga attraktioner',value:1200,note:'Mindre museer och stopp'},
@@ -458,6 +458,11 @@ const money=n=>new Intl.NumberFormat('sv-SE').format(Math.round(n))+' kr';
 const escapeHtml=value=>String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const defaults=Object.fromEntries(costs.map(c=>[c.key,c.value]));
 const budget=get('usa2027-budget-v2',defaults);
+// Uppgradera tidigare standardvärden utan att skriva över andra egna budgetjusteringar.
+if(Number(budget['Hyrbil'])===15000) budget['Hyrbil']=17896.98;
+if(Number(budget['Hyrbilsförsäkring'])===3000) budget['Hyrbilsförsäkring']=0;
+if(Number(budget['Hoover Dam'])===990) budget['Hoover Dam']=0;
+save('usa2027-budget-v2',budget);
 const pageIds=[...$$('[data-page]')].map(b=>b.dataset.page);
 function show(id,scroll=true){
   if(!pageIds.includes(id)) id='start';
@@ -695,7 +700,7 @@ const bbFeature=$('.breaking-bad-feature');
 const abqDay=document.querySelector('.stop[data-date="5 maj"]');
 if(bbFeature&&abqDay) abqDay.insertAdjacentElement('afterend',bbFeature);
 
-$('#budget').innerHTML=costs.map((c,i)=>'<label for="c'+i+'">'+c.key+'<small>'+c.note+'</small><input id="c'+i+'" type="number" min="0" step="50" data-cost="'+c.key+'" value="'+(Number(budget[c.key]??c.value))+'"></label>').join('');
+$('#budget').innerHTML=costs.map((c,i)=>'<label for="c'+i+'">'+c.key+'<small>'+c.note+'</small><input id="c'+i+'" type="number" min="0" step="0.01" data-cost="'+c.key+'" value="'+(Number(budget[c.key]??c.value))+'"></label>').join('');
 function sum(){
   $$('[data-cost]').forEach(e=>budget[e.dataset.cost]=Math.max(0,Number(e.value)||0));
   save('usa2027-budget-v2',budget);
